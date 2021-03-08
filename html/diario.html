@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.4/markdown-it.min.js"></script>
+</head>
+
+<body>
+    <header class="markdown-body">
+        <h1>Reto en pantuflas!</h1>
+        <h2>Insignias obtenidas:</h2>
+        <div id="humor">
+            <img id='grinning' src='https://img.shields.io/badge/%F0%9F%98%80-0-green.svg'>
+            <img id='neutral_face' src='https://img.shields.io/badge/%F0%9F%98%90-0-blue.svg'>
+            <img id='frowning_face' src='https://img.shields.io/badge/%F0%9F%98%95-0-red.svg'>
+        </div>
+        <div id="insignias"></div>
+    </header>
+    <main id="diario" class="markdown-body"></main>
+</body>
+<script type="module">
+    import { obtenerHumorDiario, calcularInsigniasDiario } from '../js/insignias.js'
+
+    function obtenerDiarioUsuario(usuario, commit) {
+        return fetch(`https://raw.githubusercontent.com/${usuario}/reto-programa-en-pantuflas/${commit}/README.md`)
+            .then(response => response.text());
+    }
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const usuario = urlParams.get('usuario') || 'sergioedo'
+    const commit = urlParams.get('commit') || 'main'
+    // const commit = 'cc17ccd3d132ddfee10542b580bc3ed041c9c79b'
+    // const commit = '9eb6be427eaa5b7d11550bc97a3d30295f5f3326'
+
+    obtenerDiarioUsuario(usuario, commit)
+        .then(diarioMD => {
+            var md = window.markdownit({
+                html: true
+            });
+            var diarioHTML = md.render(diarioMD);
+
+            document.getElementById('diario').innerHTML = diarioHTML;
+
+            // Calculamos las badges de humor
+            const humor = obtenerHumorDiario(diarioMD)
+
+            document.getElementById('grinning').src = `https://img.shields.io/badge/%F0%9F%98%80-${humor.grinning}-green.svg`;
+            document.getElementById('neutral_face').src = `https://img.shields.io/badge/%F0%9F%98%90-${humor.neutral_face}-blue.svg`;
+            document.getElementById('frowning_face').src = `https://img.shields.io/badge/%F0%9F%98%95-${humor.frowning_face}-red.svg`;
+
+            // Calculasmos las insignias
+            const insignias = calcularInsigniasDiario(diarioMD)
+
+            insignias.map(insignia => {
+                const imgInsignia = document.createElement('img')
+                imgInsignia.src = insignia.url_image
+                imgInsignia.width = 100
+                document.getElementById('insignias').appendChild(imgInsignia)
+            })
+        })    
+</script>
+
+</html>

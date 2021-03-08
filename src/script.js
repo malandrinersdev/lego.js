@@ -1,5 +1,5 @@
-import { obtenerDiarioUsuario } from './diarios.js'
-import { obtenerHumorDiario, calcularInsigniasDiario } from './insignias.js'
+import { obtenerDiarioUsuario } from '../js/diarios.js'
+import { obtenerHumorDiario, calcularInsigniasDiario } from '../js/insignias.js'
 
 const usuario = 'sergioedo'
 const commit = 'main'
