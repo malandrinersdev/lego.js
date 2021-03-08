@@ -42,7 +42,7 @@
     import { getUsuarios } from '../js/usuarios.js'
 
     const urlParams = new URLSearchParams(window.location.search);
-    const modo = urlParams.get('modo') || 'cliente'  // cliente|servidor
+    const modo = urlParams.get('modo') || 'servidor'  // cliente|servidor
 
     function obtenerDiario(usuario, commit) {
         return fetch(`https://raw.githubusercontent.com/${usuario}/reto-programa-en-pantuflas/${commit}/README.md`)

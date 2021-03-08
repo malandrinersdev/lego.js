@@ -50,6 +50,7 @@
     const urlParams = new URLSearchParams(window.location.search);
     const usuario = urlParams.get('usuario') || 'sergioedo'
     const commit = urlParams.get('commit') || 'main'
+    const modo = urlParams.get('modo') || 'servidor'  // cliente|servidor
     // const commit = 'cc17ccd3d132ddfee10542b580bc3ed041c9c79b'
     // const commit = '9eb6be427eaa5b7d11550bc97a3d30295f5f3326'
 
@@ -61,24 +62,48 @@
             var diarioHTML = md.render(diarioMD);
 
             document.getElementById('diario').innerHTML = diarioHTML;
+            if (modo === 'cliente') {
+                console.time('load_data')
+                // Calculamos las badges de humor
+                const humor = obtenerHumorDiario(diarioMD)
 
-            // Calculamos las badges de humor
-            const humor = obtenerHumorDiario(diarioMD)
+                document.getElementById('grinning').src = `https://img.shields.io/badge/%F0%9F%98%80-${humor.grinning}-green.svg`;
+                document.getElementById('neutral_face').src = `https://img.shields.io/badge/%F0%9F%98%90-${humor.neutral_face}-blue.svg`;
+                document.getElementById('frowning_face').src = `https://img.shields.io/badge/%F0%9F%98%95-${humor.frowning_face}-red.svg`;
 
-            document.getElementById('grinning').src = `https://img.shields.io/badge/%F0%9F%98%80-${humor.grinning}-green.svg`;
-            document.getElementById('neutral_face').src = `https://img.shields.io/badge/%F0%9F%98%90-${humor.neutral_face}-blue.svg`;
-            document.getElementById('frowning_face').src = `https://img.shields.io/badge/%F0%9F%98%95-${humor.frowning_face}-red.svg`;
+                // Calculasmos las insignias
+                const insignias = calcularInsigniasDiario(diarioMD)
 
-            // Calculasmos las insignias
-            const insignias = calcularInsigniasDiario(diarioMD)
+                insignias.map(insignia => {
+                    const imgInsignia = document.createElement('img')
+                    imgInsignia.src = insignia.url_image
+                    imgInsignia.width = 100
+                    document.getElementById('insignias').appendChild(imgInsignia)
+                })
+                console.timeEnd('load_data')
+            } else {
+                console.time('load_data_from_api')
+                fetch(`/insignias/${usuario}`)
+                    .then(response => response.json())
+                    .then(insigniasJSON => {
+                        console.log(insigniasJSON)
+                        const { usuario, humor, insignias } = insigniasJSON
 
-            insignias.map(insignia => {
-                const imgInsignia = document.createElement('img')
-                imgInsignia.src = insignia.url_image
-                imgInsignia.width = 100
-                document.getElementById('insignias').appendChild(imgInsignia)
-            })
-        })    
+                        document.getElementById('grinning').src = `https://img.shields.io/badge/%F0%9F%98%80-${humor.grinning}-green.svg`;
+                        document.getElementById('neutral_face').src = `https://img.shields.io/badge/%F0%9F%98%90-${humor.neutral_face}-blue.svg`;
+                        document.getElementById('frowning_face').src = `https://img.shields.io/badge/%F0%9F%98%95-${humor.frowning_face}-red.svg`;
+
+                        insignias.map(insignia => {
+                            const imgInsignia = document.createElement('img')
+                            imgInsignia.src = insignia.url_image
+                            imgInsignia.width = 100
+                            document.getElementById('insignias').appendChild(imgInsignia)
+                        })
+
+                        console.timeEnd('load_data_from_api')
+                    })
+            }
+        })
 </script>
 
 </html>
