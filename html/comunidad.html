@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/github-markdown-css/4.0.0/github-markdown.min.css">
+    <style>
+        .markdown-body {
+            box-sizing: border-box;
+            min-width: 200px;
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 25px;
+        }
+
+        @media (max-width: 767px) {
+            .markdown-body {
+                padding: 15px;
+            }
+        }
+    </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/markdown-it/12.0.4/markdown-it.min.js"></script>
+</head>
+
+<body>
+    <header class="markdown-body">
+        <h1>Comunidad en pantuflas!</h1>
+    </header>
+    <main class="markdown-body">
+        <h2>Tablón de Insignias</h2>
+        <div>
+            <table id="top"></table>
+        </div>
+    </main>
+</body>
+<script type="module">
+    import { obtenerHumorDiario, calcularInsigniasDiario } from '../js/insignias.js'
+    import { getUsuarios } from '../js/usuarios.js'
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const modo = urlParams.get('modo') || 'cliente'  // cliente|servidor
+
+    function obtenerDiario(usuario, commit) {
+        return fetch(`https://raw.githubusercontent.com/${usuario}/reto-programa-en-pantuflas/${commit}/README.md`)
+            .then(response => response.text());
+    }
+
+    const imageTag = (src, width) => {
+        const imgTag = document.createElement('img')
+        imgTag.src = src
+        if (width) imgTag.width = width
+        return imgTag
+    }
+
+    const humorTD = (humor) => {
+        const tdHumor = document.createElement('td')
+        tdHumor.width = "20%"
+        tdHumor.appendChild(imageTag(`https://img.shields.io/badge/%F0%9F%98%80-${humor.grinning}-green.svg`))
+        tdHumor.appendChild(imageTag(`https://img.shields.io/badge/%F0%9F%98%80-${humor.neutral_face}-blue.svg`))
+        tdHumor.appendChild(imageTag(`https://img.shields.io/badge/%F0%9F%98%80-${humor.frowning_face}-red.svg`))
+        return tdHumor
+    }
+
+    const insigniasTD = (insignias) => {
+        const tdHumor = document.createElement('td')
+        tdHumor.width = "60%"
+        insignias.map(insignia => {
+            tdHumor.appendChild(imageTag(insignia.url_image, 100))
+        })
+        return tdHumor
+    }
+
+    const usuarioTR = (usuario, humor, insignias) => {
+        // Creamos la fila del usuario, con su info de humor+insignias
+        const trUsuario = document.createElement('tr')
+        const tdNombre = document.createElement('td')
+        tdNombre.width = "20%"
+        tdNombre.innerText = usuario
+        trUsuario.appendChild(tdNombre)
+
+        trUsuario.appendChild(humorTD(humor))
+        trUsuario.appendChild(insigniasTD(insignias))
+
+        return trUsuario
+    }
+
+    console.time('load_data')
+    let count = 0
+    const usuarios = getUsuarios()
+    usuarios.map(usuario => {
+        obtenerDiario(usuario, 'main')
+            .then(diarioMD => {
+                const humor = obtenerHumorDiario(diarioMD)
+                const insignias = calcularInsigniasDiario(diarioMD)
+                document.getElementById('top').appendChild(usuarioTR(usuario, humor, insignias))
+
+                // profile:
+                count++
+                if (count >= usuarios.length) console.timeEnd('load_data')
+            })
+    })
+
+</script>
+
+</html>
