@@ -88,21 +88,35 @@
         return trUsuario
     }
 
-    console.time('load_data')
-    let count = 0
-    const usuarios = getUsuarios()
-    usuarios.map(usuario => {
-        obtenerDiario(usuario, 'main')
-            .then(diarioMD => {
-                const humor = obtenerHumorDiario(diarioMD)
-                const insignias = calcularInsigniasDiario(diarioMD)
-                document.getElementById('top').appendChild(usuarioTR(usuario, humor, insignias))
+    if (modo == 'cliente') {
+        console.time('load_data')
+        let count = 0
+        const usuarios = getUsuarios()
+        usuarios.map(usuario => {
+            obtenerDiario(usuario, 'main')
+                .then(diarioMD => {
+                    const humor = obtenerHumorDiario(diarioMD)
+                    const insignias = calcularInsigniasDiario(diarioMD)
+                    document.getElementById('top').appendChild(usuarioTR(usuario, humor, insignias))
 
-                // profile:
-                count++
-                if (count >= usuarios.length) console.timeEnd('load_data')
+                    // profile:
+                    count++
+                    if (count >= usuarios.length) console.timeEnd('load_data')
+                })
+        })
+    } else {
+        console.time('load_data_from_api')
+        fetch(`/insignias`)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                data.map(insigniasJSON => {
+                    const { usuario, humor, insignias } = insigniasJSON
+                    document.getElementById('top').appendChild(usuarioTR(usuario, humor, insignias))
+                })
+                console.timeEnd('load_data_from_api')
             })
-    })
+    }
 
 </script>
 

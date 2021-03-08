@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "script": "node src/script.js",
-    "client": "npx live-server"
+    "client": "npx live-server",
+    "server": "npx nodemon src/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,8 @@
   },
   "homepage": "https://github.com/sergioedo/lego.js#readme",
   "dependencies": {
-    "node-fetch": "2.6.1"
+    "express": "4.17.1",
+    "node-fetch": "2.6.1",
+    "response-time": "2.3.2"
   }
 }

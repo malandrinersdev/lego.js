@@ -24,12 +24,10 @@ export const getUsuarios = () => {
     ]
 
     // A morir de exito!
-    // usuarios.push(...usuarios)
-    // usuarios.push(...usuarios)
-    // usuarios.push(...usuarios)
-    // usuarios.push(...usuarios)
-    // usuarios.push(...usuarios)
-    // usuarios.push(...usuarios)
+    usuarios.push(...usuarios)
+    usuarios.push(...usuarios)
+    usuarios.push(...usuarios)
+    usuarios.push(...usuarios)
 
     return usuarios
 }
