@@ -1,2 +1,2 @@
-# legojs
-Lego.js, un "framework" que usamos todos
+# LEGO.js
+LEGO.js, un "framework" que usamos todos...

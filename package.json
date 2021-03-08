@@ -1,0 +1,24 @@
+{
+  "name": "lego.js",
+  "version": "0.0.1",
+  "description": "LEGO.js, un \"framework\" que usamos todos...",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "script": "node src/script.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sergioedo/lego.js.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sergioedo/lego.js/issues"
+  },
+  "homepage": "https://github.com/sergioedo/lego.js#readme",
+  "dependencies": {
+    "node-fetch": "2.6.1"
+  }
+}
