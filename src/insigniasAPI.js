@@ -2,15 +2,28 @@ import express from 'express'
 import { getUsuarios } from '../js/usuarios.js'
 import { obtenerDiarioUsuario } from '../js/diarios.js'
 import { calcularInsigniasDiario, obtenerHumorDiario } from '../js/insignias.js'
+import { getValueFromCache, setValueToCache, getCacheKeys } from './cache.js'
+const DEFAULT_CACHE_TTL = 10000
 
 const router = express.Router()
+
+// CACHE: si esta en cache, ya podemos contestar
+router.get('*', (req, res, next) => {
+    const value = getValueFromCache(req.path)
+    if (value) {
+        res.json(value)
+    } else {
+        next()
+    }
+})
 
 // API: Insignias de todos los usuarios
 router.get('/', (req, res, next) => {
     const usuarios = getUsuarios()
     obtenerInsigniasUsuarios(usuarios)
         .then(insignias => {
-            res.json(insignias)
+            res.locals.APIResponse = insignias
+            next()
         })
         .catch(error => {
             next({ status: 500, message: `No se han podido obtener los diario de los usuarios` })
@@ -26,11 +39,23 @@ router.get('/:usuario', (req, res, next) => {
     } else {
         obtenerInsigniasUsuarios([usuario])
             .then(insigniasUsuario => {
-                res.json(insigniasUsuario[0])
+                res.locals.APIResponse = insigniasUsuario[0]
+                next()
             })
             .catch(err => {
                 next({ status: 500, message: `No se ha podido obtener el diario del usuario ${usuario}` })
             })
+    }
+})
+
+// API: Respuesta final
+router.get('*', (req, res, next) => {
+    if (res.locals.APIResponse) {
+        // CACHE: Antes de devolver, cacheamos la respuesta
+        setValueToCache(req.path, res.locals.APIResponse, DEFAULT_CACHE_TTL)
+        res.json(res.locals.APIResponse)
+    } else {
+        next()
     }
 })
 
