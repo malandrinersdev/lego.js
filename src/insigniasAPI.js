@@ -7,6 +7,26 @@ const DEFAULT_CACHE_TTL = 10000
 
 const router = express.Router()
 
+// CACHE: Si conocemos los posibles valores, prepoblamos la cache (evitar el primer MISS)
+router.get('/cache/refresh/:ttl?', (req, res, next) => {
+    const ttl = req.params.ttl ? Number(req.params.ttl) : undefined
+    const usuarios = getUsuarios()
+    obtenerInsigniasUsuarios(usuarios)
+        .then(insignias => {
+            // Cache global (todos los usuarios)
+            setValueToCache('/', insignias, ttl)
+
+            //Cache por usuario
+            usuarios.map(usuario => {
+                const insigniasUsuario = insignias.filter(iu => iu.usuario === usuario) || []
+                setValueToCache(`/${usuario}`, insigniasUsuario[0], ttl)
+            })
+
+            res.json({ cacheKeys: getCacheKeys() })
+        })
+        .catch(next)
+})
+
 // CACHE: si esta en cache, ya podemos contestar
 router.get('*', (req, res, next) => {
     const value = getValueFromCache(req.path)
