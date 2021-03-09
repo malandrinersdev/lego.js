@@ -22,6 +22,7 @@
   "homepage": "https://github.com/sergioedo/lego.js#readme",
   "dependencies": {
     "express": "4.17.1",
+    "http-proxy-middleware": "1.0.6",
     "node-fetch": "2.6.1",
     "response-time": "2.3.2"
   }

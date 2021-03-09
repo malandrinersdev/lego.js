@@ -3,6 +3,7 @@ import { getUsuarios } from '../js/usuarios.js'
 import { obtenerDiarioUsuario } from '../js/diarios.js'
 import { calcularInsigniasDiario, obtenerHumorDiario } from '../js/insignias.js'
 import { getValueFromCache, setValueToCache, getCacheKeys } from './cache.js'
+import { createProxyMiddleware } from 'http-proxy-middleware'
 const DEFAULT_CACHE_TTL = 10000
 
 const router = express.Router()
@@ -51,7 +52,7 @@ router.get('/', (req, res, next) => {
 })
 
 // API: Insignias de un usuario
-router.get('/:usuario', (req, res, next) => {
+router.get('/:usuario*', (req, res, next) => {
     const usuario = req.params.usuario
     const check = checkUsuario(usuario)
     if (check.error) {
@@ -66,6 +67,21 @@ router.get('/:usuario', (req, res, next) => {
                 next({ status: 500, message: `No se ha podido obtener el diario del usuario ${usuario}` })
             })
     }
+})
+
+// API: insignias con shields.io
+router.get('/:usuario/humor/:humor', (req, res, next) => {
+    const humor = req.params.humor
+    createProxyMiddleware({
+        target: 'https://img.shields.io/',
+        changeOrigin: true,
+        pathRewrite: (path, reqProxy) => {
+            const emojiHumor = obtenerEmojiDeHumor(humor)
+            const colorHumor = obtenerColorDeHumor(humor)
+            const humorUsuario = res.locals.APIResponse && res.locals.APIResponse.humor[humor] || 0
+            return `/badge/${emojiHumor}-${humorUsuario}-${colorHumor}`
+        }
+    })(req, res, next)
 })
 
 // API: Respuesta final
@@ -120,6 +136,24 @@ const obtenerInsigniasUsuarios = (usuarios) => {
             const insigniasOrdenadas = insignias.sort((a, b) => (a.usuario.toLowerCase() > b.usuario.toLocaleLowerCase()) ? 1 : -1)
             return insigniasOrdenadas
         })
+}
+
+const obtenerEmojiDeHumor = (humor) => {
+    const emojisHumor = {
+        grinning: '%F0%9F%98%80',
+        neutral_face: '%F0%9F%98%90',
+        frowning_face: '%F0%9F%98%95'
+    }
+    return emojisHumor[humor] || 'humor'
+}
+
+const obtenerColorDeHumor = (humor) => {
+    const colorHumor = {
+        grinning: 'green',
+        neutral_face: 'blue',
+        frowning_face: 'red'
+    }
+    return colorHumor[humor] || 'inactive'
 }
 
 // --------------------------------------
