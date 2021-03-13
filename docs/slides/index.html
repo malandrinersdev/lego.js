@@ -1,0 +1,206 @@
+<!doctype html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+	<title>reveal.js</title>
+
+	<link rel="stylesheet" href="dist/reset.css">
+	<link rel="stylesheet" href="dist/reveal.css">
+	<link rel="stylesheet" href="dist/theme/black.css" id="theme">
+
+	<!-- Theme used for syntax highlighted code -->
+	<link rel="stylesheet" href="plugin/highlight/monokai.css" id="highlight-theme">
+</head>
+
+<body>
+	<div class="reveal">
+		<div class="slides">
+			<section>
+				<h1>LEGO.js</h1>
+				<p>El framework que llevamos dentro...</p>
+				<p><small>...porque las personas somos lo importante (&copy; Daniel Primo)</small></p>
+			</section>
+			<section>
+				<h2>¿Qué es LEGO.js?</h2>
+				<ul>
+					<li>NO es la <a href="https://lego.js.org/">librería JS</a> (que podría...)
+					</li>
+					<li>Está más cerca de los <a href="">JUGUETES</a> que ya conocemos</li>
+					<li>Es un idea que <a href="https://nordicapis.com/great-apis-like-lego-bricks/">ya hemos visto</a>
+					</li>
+					<li>Y sobretodo...tiene que ver con <a herf="">CÓMO</a> hacemos las cosas (o así lo veo yo)</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Caso práctico:</h3>
+				<p>
+					<a href="https://github.com/sergioedo/reto-programa-en-pantuflas/blob/main/README.md">Reto en
+						Pantuflas</a>
+				</p>
+				<img src="./images/reto-pantuflas-insignias.png" height="auto" width="600" />
+			</section>
+			<section>
+				<h3>La mente del developer...</h3>
+				<p>!A programar un script!</p>
+				<p>¿Por qué no en Java<b>SCRIPT</b>?</p>
+				<img src="./images/insignias_script.png" height="auto" width="700" />
+				<p><small>Nota: pido perdón a todos los sysadmin...shellscript...</small></p>
+			</section>
+			<section>
+				<h3>Lego.js: así se empieza</h3>
+				<img src="./images/lego_js_world.png" height="500px" width="auto" />
+				<p>!YA tenemos nuestra primera pieza!</p>
+			</section>
+			<section>
+				<h3>Front para el usuario!</h3>
+				<img src="./images/diario.png" height="500px" width="auto">
+				<p>Veamos un poco más de código...</p>
+			</section>
+			<section>
+				<h3>Lego.js: construyendo</h3>
+				<img src="./images/diario_lego.png" height="500px" width="auto" />
+				<p>Nuestro primer diseño, !con instrucciones!</p>
+			</section>
+			<section data-background="https://media.giphy.com/media/WPoU26BGG3tgqj0MPz/giphy.gif">
+				<h3 style="background-color: black">Nos venimos arriba...</h3>
+			</section>
+			<section>
+				<h3>Diarios de la comunidad</h3>
+				<img src="./images/comunidad.png" height="500px" width="auto">
+				<p>Veamos si da problemas...</p>
+			</section>
+			<section>
+				<h3>Lego.js: Esto no me encaja...</h3>
+				<img src="./images/comunidad_lego.png" height="500px" width="auto" />
+				<p>Dudas, estabilidad, escalable...</p>
+			</section>
+			<section data-background="https://media.giphy.com/media/ZcKnNGLHUE78AWn5E6/giphy.gif">
+				<h3 style="background-color: black;">Habrá que ir pensando algo...</h3>
+			</section>
+			<section data-background="https://media.giphy.com/media/Yxoeu3U5wVYVG/giphy.gif">
+				<h3 style="background-color: black;">Por si la cosa crece...</h3>
+			</section>
+			<section>
+				<h3>El Back al rescate!</h3>
+				<img src="./images/back.png" height="500px" width="auto" style="margin: 0">
+				<p>Uff, parece complicado...</p>
+			</section>
+			<section>
+				<h3>Lego.js: Todo encaja y crece</h3>
+				<img src="./images/back_lego.png" height="500px" width="auto" />
+				<p>Veamos qué tal funciona...</p>
+			</section>
+			<section data-background="https://media.giphy.com/media/f6h3oVdHh0Te8Iqtqi/giphy.gif">
+				<h3 style="background-color: black;">Ojo! No nos confiemos...</h3>
+			</section>
+			<section data-background="https://media.giphy.com/media/3o6MbnqLhX5tJ5wNQQ/giphy.gif">
+				<h3 style="background-color: black;">Con lo que molaba el API...</h3>
+			</section>
+			<section>
+				<h3>Caché al rescate!</h3>
+				<img src="./images/cache.png" height="500px" width="auto" />
+			</section>
+			<section style="background-color: black"
+				data-background="https://media.giphy.com/media/OdyGA2spBFRCg/giphy.gif">
+				<h3 style="background-color: black">Nos para los golpes</h3>
+				<ul>
+					<li>No saturamos al servidor</li>
+					<li>Mejor experiencia de cliente</li>
+				</ul>
+			</section>
+			<section>
+				<h3>Invalidación</h3>
+				<img src="./images/cache_expired.png" height="300px" width="auto" />
+				<p>Uno de los 2 problemas en informática</p>
+				<p><small>("naming" es el otro)</small></p>
+			</section>
+			<section>
+				<h3>Cache API</h3>
+				<p>Nos permite gestionarla desde fuera</p>
+				<img src="./images/cache_refresh.png" height="500px" width="auto" />
+			</section>
+			<section>
+				<h3>API INSIGNIAS</h3>
+				<p>Volvamos al problema inicial...</p>
+				<pre data-id="code-animation">
+					<code class="js" data-trim data-line-numbers>
+					export function obtenerHumorDiario(diarioMD) {
+						...
+						return {
+							grinning,
+							neutral_face,
+							frowning_face,
+							total: grinning + neutral_face + ... 
+						}
+					}
+					</code>
+				</pre>
+				<p>Para conseguir algo así...</p>
+				<p></p>
+				<img src="https://img.shields.io/badge/%F0%9F%98%80-4-green.svg">
+				<img src="https://img.shields.io/badge/%F0%9F%98%80-1-blue.svg">
+				<img src="https://img.shields.io/badge/%F0%9F%98%80-0-red.svg">
+				</p>
+			</section>
+			<section>
+				<h3>[Shields.io + Insignias] API</h3>
+				<img src="./images/api_shields.png" height="500px" width="auto" />
+			</section>
+			<section>
+				<h3>DEPLOY API</h3>
+				<p>Digital Ocean (Node.js App):</p>
+				<a
+					href="https://lego-js-vi7gr.ondigitalocean.app/insignias">https://lego-js-vi7gr.ondigitalocean.app/insignias</a>
+				<br>
+				<img src="https://lego-js-vi7gr.ondigitalocean.app/insignias/sergioedo/humor/grinning" alt="">
+				<img src="https://lego-js-vi7gr.ondigitalocean.app/insignias/sergioedo/humor/neutral_face" alt="">
+				<img src="https://lego-js-vi7gr.ondigitalocean.app/insignias/sergioedo/humor/frowning_face" alt="">
+				<p>Vercel (Next.js):</p>
+				<a href="https://legojs.vercel.app/api/insignias">https://legojs.vercel.app/api/insignias</a> <br>
+				<img src="https://legojs.vercel.app/api/insignias/sergioedo/humor/grinning" alt="">
+				<img src="https://legojs.vercel.app/api/insignias/sergioedo/humor/neutral_face" alt="">
+				<img src="https://legojs.vercel.app/api/insignias/sergioedo/humor/frowning_face" alt="">
+				</p>
+			</section>
+			<section>
+				<h3>WEBHOOK UPDATE CACHE</h3>
+				<p>TODO: cazar webhook de GitHub para refrescar caché</p>
+			</section>
+			<section>
+				<h3>Resumen / Tips</h3>
+				<ul>
+					<li>Lego.js = Encapsular + Conectar (y repetir, repetir...)</li>
+					<li>Javascript "everywhere" => insignias.js</li>
+					<li>Front+Back => buenos aliados</li>
+					<li>APIs => es la pieza de lego "adaptador"</li>
+					<li>Cachés: <a href="https://martinfowler.com/bliki/TwoHardThings.html">una</a> de las dos cosas más
+						difíciles</li>
+				</ul>
+			</section>
+			<section data-background="https://media.giphy.com/media/xUA7b0Klw8Wfor7FWo/giphy.gif">
+				<h3 style="background-color: black;">Gracias!!!</h3>
+			</section>
+		</div>
+	</div>
+
+	<script src="dist/reveal.js"></script>
+	<script src="plugin/notes/notes.js"></script>
+	<script src="plugin/markdown/markdown.js"></script>
+	<script src="plugin/highlight/highlight.js"></script>
+	<script>
+		// More info about initialization & config:
+		// - https://revealjs.com/initialization/
+		// - https://revealjs.com/config/
+		Reveal.initialize({
+			hash: true,
+
+			// Learn about plugins: https://revealjs.com/plugins/
+			plugins: [RevealMarkdown, RevealHighlight, RevealNotes]
+		});
+	</script>
+</body>
+
+</html>
