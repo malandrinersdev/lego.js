@@ -3,6 +3,9 @@ import path from 'path'
 import { fileURLToPath } from 'url'
 import responseTime from 'response-time'
 import insigniasAPIRoutes from './insigniasAPI.js'
+import dotenv from 'dotenv'
+
+dotenv.config()
 
 //we need to change up how __dirname is used for ES6 purposes --> https://github.com/nodejs/help/issues/2907
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -16,6 +19,11 @@ const port = 3000
 // Contenido estático
 app.use('/html', express.static(path.join(__dirname, '..', 'html')))
 app.use('/js', express.static(path.join(__dirname, '..', 'js')))
+
+// Loader.io
+app.use('/loaderio-*', (req, res) => {
+    res.send(process.env.LOADERIO_VERIFICATION_TOKEN)
+})
 
 // Para ver el rendimiento de las peticiones/respuestas
 app.use(responseTime((req, res, time) => console.log(req.path, time)))
