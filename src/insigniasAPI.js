@@ -4,13 +4,11 @@ import { obtenerDiarioUsuario } from '../js/diarios.js'
 import { calcularInsigniasDiario, obtenerHumorDiario } from '../js/insignias.js'
 import { getValueFromCache, setValueToCache, getCacheKeys } from './cache.js'
 import { createProxyMiddleware } from 'http-proxy-middleware'
-const DEFAULT_CACHE_TTL = 10000
+const DEFAULT_CACHE_TTL = 24 * 60 * 60 * 1000
 
 const router = express.Router()
 
-// CACHE: Si conocemos los posibles valores, prepoblamos la cache (evitar el primer MISS)
-router.get('/cache/refresh/:ttl?', (req, res, next) => {
-    const ttl = req.params.ttl ? Number(req.params.ttl) : undefined
+const refrescarCache = (req, res, next, ttl) => {
     const usuarios = getUsuarios()
     obtenerInsigniasUsuarios(usuarios)
         .then(insignias => {
@@ -26,6 +24,22 @@ router.get('/cache/refresh/:ttl?', (req, res, next) => {
             res.json({ cacheKeys: getCacheKeys() })
         })
         .catch(next)
+}
+
+//CACHE: Webhook para actualizar la cache
+router.post('/cache/refresh', (req, res, next) => {
+    const usuario = JSON.parse(req.body.payload).sender.login || 'anonymous'
+    if (checkUsuario(usuario)) {
+        refrescarCache(req, res, next)
+    } else {
+        next({ status: 403, message: `Usuario no autorizado` })
+    }
+})
+
+// CACHE: Si conocemos los posibles valores, prepoblamos la cache (evitar el primer MISS)
+router.get('/cache/refresh/:ttl?', (req, res, next) => {
+    const ttl = req.params.ttl ? Number(req.params.ttl) : undefined
+    refrescarCache(req, res, next, ttl)
 })
 
 // CACHE: si esta en cache, ya podemos contestar

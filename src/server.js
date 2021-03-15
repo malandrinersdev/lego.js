@@ -4,6 +4,7 @@ import { fileURLToPath } from 'url'
 import responseTime from 'response-time'
 import insigniasAPIRoutes from './insigniasAPI.js'
 import dotenv from 'dotenv'
+import bodyParser from 'body-parser'
 
 dotenv.config()
 
@@ -24,6 +25,8 @@ app.use('/js', express.static(path.join(__dirname, '..', 'js')))
 app.use('/loaderio-*', (req, res) => {
     res.send(process.env.LOADERIO_VERIFICATION_TOKEN)
 })
+
+app.use(bodyParser.urlencoded({ extended: true }))
 
 // Para ver el rendimiento de las peticiones/respuestas
 app.use(responseTime((req, res, time) => console.log(req.path, time)))
