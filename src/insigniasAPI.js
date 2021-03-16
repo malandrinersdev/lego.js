@@ -27,10 +27,11 @@ const refrescarCache = (req, res, next, ttl) => {
 }
 
 //CACHE: Webhook para actualizar la cache
-router.post('/cache/refresh', (req, res, next) => {
+router.post('/cache/refresh/:ttl?', (req, res, next) => {
+    const ttl = req.params.ttl ? Number(req.params.ttl) : undefined
     const usuario = JSON.parse(req.body.payload).sender.login || 'anonymous'
     if (checkUsuario(usuario)) {
-        refrescarCache(req, res, next)
+        refrescarCache(req, res, next, ttl)
     } else {
         next({ status: 403, message: `Usuario no autorizado` })
     }
