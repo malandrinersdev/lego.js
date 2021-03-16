@@ -86,6 +86,7 @@ router.get('/:usuario*', (req, res, next) => {
 // API: insignias con shields.io
 router.get('/:usuario/humor/:humor', (req, res, next) => {
     const humor = req.params.humor
+    res.set('Cache-control', `no-store`) // NO CACHE!
     createProxyMiddleware({
         target: 'https://img.shields.io/',
         changeOrigin: true,
