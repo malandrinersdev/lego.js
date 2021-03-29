@@ -3,7 +3,12 @@ import { getUsuarios } from '../js/usuarios.js'
 import { obtenerDiarioUsuario } from '../js/diarios.js'
 import { calcularInsigniasDiario, obtenerHumorDiario } from '../js/insignias.js'
 import { getValueFromCache, setValueToCache, getCacheKeys } from './cache.js'
-import { createProxyMiddleware } from 'http-proxy-middleware'
+import httpProxyMiddleware from 'http-proxy-middleware'
+const { createProxyMiddleware } = httpProxyMiddleware
+// A partir de node 14.13: 
+// import { createProxyMiddleware } from 'http-proxy-middleware'
+// https://simonplend.com/node-js-now-supports-named-imports-from-commonjs-modules-but-what-does-that-mean/
+
 const DEFAULT_CACHE_TTL = 24 * 60 * 60 * 1000
 
 const router = express.Router()
