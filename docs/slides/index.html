@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
-	<title>reveal.js</title>
+	<title>Lego.js</title>
 
 	<link rel="stylesheet" href="dist/reset.css">
 	<link rel="stylesheet" href="dist/reveal.css">
@@ -33,6 +33,15 @@
 					</li>
 					<li>Y sobretodo...tiene que ver con <a herf="">CÓMO</a> hacemos las cosas (o así lo veo yo)</li>
 				</ul>
+				<aside class="notes">
+					<ul>
+						<li>yo soy mas de tente</li>
+						<li>señor nordico, con APIs</li>
+						<li>como pensamos cuando desarrollamos</li>
+						<li>que tenemos en la cabecita</li>
+						<li>Veamoslo con un ejemplo práctico</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Caso práctico:</h3>
@@ -41,6 +50,13 @@
 						Pantuflas</a>
 				</p>
 				<img src="./images/reto-pantuflas-insignias.png" height="auto" width="600" />
+				<aside class="notes">
+					<ul>
+						<li>que es el reto, saltar a github repo</li>
+						<li>explicar el problema al editar</li>
+						<li>enseñar el "raw" para ver que es texto (parseable)</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>La mente del developer...</h3>
@@ -48,60 +64,166 @@
 				<p>¿Por qué no en Java<b>SCRIPT</b>?</p>
 				<img src="./images/insignias_script.png" height="auto" width="700" />
 				<p><small>Nota: pido perdón a todos los sysadmin...shellscript...</small></p>
+				<aside class="notes">
+					<ul>
+						<li>Lo suelo usar para primeras aproximaciones (datos)</li>
+						<li>Veamos el código!</li>
+						<li>proyecto node (package.json)</li>
+						<li>script.js > diario.js -> insignias</li>
+						<li>problema con los emojis</li>
+						<li>mostrar resultado (consola)</li>
+						<li>Encapsulación de métodos/módulos --> mentalidad lego!</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Lego.js: así se empieza</h3>
 				<img src="./images/lego_js_world.png" height="500px" width="auto" />
 				<p>!YA tenemos nuestra primera pieza!</p>
+				<aside class="notes">
+					<ul>
+						<li>Parámetros/Salida -> conectores de la pieza</li>
+						<li>Usamos otras piezas ya existentes -> NodeJS, Node-Fetch</li>
+						<li>Esta bien para developers (compartir script)</li>
+						<li>Pero poco usable (como usuario editor)</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Front para el usuario!</h3>
 				<img src="./images/diario.png" height="500px" width="auto">
 				<p>Veamos un poco más de código...</p>
+				<aside class="notes">
+					<ul>
+						<li>Página dinámica y automático</li>
+						<li>Veamos el código!</li>
+						<li>Zonas HTML + Parámetros + Código</li>
+						<li>Fetch nativo + CSS</li>
+						<li>Mostrar resultado (live server, params. usuario+commit)</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Lego.js: construyendo</h3>
 				<img src="./images/diario_lego.png" height="500px" width="auto" />
 				<p>Nuestro primer diseño, !con instrucciones!</p>
+				<aside class="notes">
+					<ul>
+						<li>Composición de piezas ya existentes</li>
+						<li>Construcción más compleja</li>
+					</ul>
+				</aside>
 			</section>
 			<section data-background="https://media.giphy.com/media/WPoU26BGG3tgqj0MPz/giphy.gif">
 				<h3 style="background-color: black">Nos venimos arriba...</h3>
+				<aside class="notes">
+					<ul>
+						<li>Ahora que tenemos esto, podríamos hacer más cosas</li>
+						<li>Algo aún más de comunidad...</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Diarios de la comunidad</h3>
 				<img src="./images/comunidad.png" height="500px" width="auto">
-				<p>Veamos si da problemas...</p>
+				<p>Veamos si la cosa funciona...</p>
+				<aside class="notes">
+					<ul>
+						<li>Aprovechamos el código anterior</li>
+						<li>Múltiples llamadas por usuario y cliente/navegador</li>
+						<li>Visión Lego (next slide)</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Lego.js: Esto no me encaja...</h3>
 				<img src="./images/comunidad_lego.png" height="500px" width="auto" />
-				<p>Dudas, estabilidad, escalable...</p>
+				<p>Dudas: estabilidad, escalable...</p>
+				<aside class="notes">
+					<ul>
+						<li>Vamos a ver el código</li>
+						<li>HTML + Javasacript similar (render "a mano")</li>
+						<li>Mostrar resultado</li>
+						<li>Funciona pero...(next)</li>
+					</ul>
+				</aside>
 			</section>
 			<section data-background="https://media.giphy.com/media/ZcKnNGLHUE78AWn5E6/giphy.gif">
-				<h3 style="background-color: black;">Habrá que ir pensando algo...</h3>
+				<h3 style="background-color: black;">Funciona!!! Pero... --></h3>
+				<aside class="notes">
+					<ul>
+						<li>Inspeccionamos network</li>
+						<li>Console con log time</li>
+						<li>Incrementamos usuarios</li>
+					</ul>
+				</aside>
 			</section>
 			<section data-background="https://media.giphy.com/media/Yxoeu3U5wVYVG/giphy.gif">
-				<h3 style="background-color: black;">Por si la cosa crece...</h3>
+				<h3 style="background-color: black;">Cuando la cosa crezca...</h3>
+				<aside class="notes">
+					<ul>
+						<li>Que podemos hacer para prepararnos...</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>El Back al rescate!</h3>
 				<img src="./images/back.png" height="500px" width="auto" style="margin: 0">
-				<p>Uff, parece complicado...</p>
+				<p>Aunque la cosa se va complicando...</p>
+				<aside class="notes">
+					<ul>
+						<li>Veamos como montar centralizarlo (API)</li>
+						<li>Vamos la código!</li>
+						<li>Servidor Node + ExpressJS</li>
+						<li>Como funciona express (routas, middlewares)</li>
+						<li>Inyectamos nuestro codigo como método de API</li>
+						<li>Vemos como queda en Lego</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Lego.js: Todo encaja y crece</h3>
 				<img src="./images/back_lego.png" height="500px" width="auto" />
 				<p>Veamos qué tal funciona...</p>
+				<aside class="notes">
+					<ul>
+						<li>Repaso de lo que hemos montado</li>
+						<li>Mostramos llamada al API + cliente nuevo</li>
+						<li>Vemos que ahora hay una sola llamada (network) --> next slide</li>
+						<li>Mostrar nuevo checkout, para montar la llamada por usuario</li>
+						<li>Ver código clientes usando API</li>
+					</ul>
+				</aside>
 			</section>
 			<section data-background="https://media.giphy.com/media/f6h3oVdHh0Te8Iqtqi/giphy.gif">
 				<h3 style="background-color: black;">Ojo! No nos confiemos...</h3>
+				<aside class="notes">
+					<ul>
+						<li>Volvamos a inspeccionar consola, tarda lo mismo!</li>
+						<li>next slide</li>
+					</ul>
+				</aside>
 			</section>
 			<section data-background="https://media.giphy.com/media/3o6MbnqLhX5tJ5wNQQ/giphy.gif">
 				<h3 style="background-color: black;">Con lo que molaba el API...</h3>
+				<aside class="notes">
+					<ul>
+						<li>mi gozo en un pozo...</li>
+						<li>como lo podemos resolver...next slide</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Caché al rescate!</h3>
 				<img src="./images/cache.png" height="500px" width="auto" />
+				<aside class="notes">
+					<ul>
+						<li>explicación general de caché</li>
+						<li>Vamos al código...</li>
+						<li>Explicar el detalle de como funciona la cache</li>
+						<li>Probar la cache con un ejemplo (10s)</li>
+					</ul>
+				</aside>
 			</section>
 			<section style="background-color: black"
 				data-background="https://media.giphy.com/media/OdyGA2spBFRCg/giphy.gif">
@@ -112,16 +234,30 @@
 				</ul>
 			</section>
 			<section>
-				<h3>Invalidación</h3>
+				<h3>Invalidación - ¿Cuándo?</h3>
 				<img src="./images/cache_expired.png" height="300px" width="auto" />
 				<p>Uno de los 2 problemas en informática</p>
 				<p><small>("naming" es el otro)</small></p>
+				<aside class="notes">
+					<ul>
+						<li>Explicar casos de uso: diario (24h), cada hora, micro-cache...</li>
+						<li>Como hacerlo de forma dinámica</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Cache API</h3>
 				<p>Nos permite gestionarla desde fuera:</p>
-				<a href="https://www.easycron.com/">https://www.easycron.com/</a>
+				<a href="https://www.easycron.com/">https://www.easycron.com/</a> <br>
+				<a href="https://uptimerobot.com/">https://uptimerobot.com/</a>
 				<img src="./images/cache_refresh.png" height="500px" width="auto" />
+				<aside class="notes">
+					<ul>
+						<li>Depurar errores limpiando la caché</li>
+						<li>Reajustar periodicidad</li>
+						<li>Mantenimiento de BBDD (extendiendo la cache)</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>API INSIGNIAS</h3>
@@ -145,10 +281,23 @@
 				<img src="https://img.shields.io/badge/%F0%9F%98%80-1-blue.svg">
 				<img src="https://img.shields.io/badge/%F0%9F%98%80-0-red.svg">
 				</p>
+				<aside class="notes">
+					<ul>
+						<li>Veamosolo con lego (next)</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>[Shields.io + Insignias] API</h3>
 				<img src="./images/api_shields.png" height="500px" width="auto" />
+				<aside class="notes">
+					<ul>
+						<li>Composicion de APIs</li>
+						<li>Customizacion de shields con nuestro caso de uso</li>
+						<li>Veamos el código (explicar proxy)</li>
+						<li>Vemos un ejemplo de resultado de la API</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>DEPLOY API</h3>
@@ -165,11 +314,30 @@
 				<img src="https://legojs.vercel.app/api/insignias/sergioedo/humor/neutral_face" alt="">
 				<img src="https://legojs.vercel.app/api/insignias/sergioedo/humor/frowning_face" alt="">
 				</p>
+				<p>Test en producción: <a href="https://loader.io/">Loader.io</a></p>
+				<aside class="notes">
+					<ul>
+						<li>Veamos como se desplega en Digital Ocean</li>
+						<li>Vercel, para luego si alguien está interesado (es con lo que estoy ahora)</li>
+						<li>Mostrar rendimiento en Loader.io</li>
+						<li>Pero si lo pensamos, ahora tenemos una BBDD en memoria (con refresco periodico)</li>
+						<li>Modificar el diario para que use el API desplegada</li>
+						<li>Y si ajustamos para que sólo se refresque cuando haya una edición?</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>GITHUB WEBHOOK + UPDATE CACHE</h3>
 				<p>Caché sin TTL, sólo actualizamos cuando hay cambios</p>
 				<img src="./images/cache_webhook.png" height="500px" width="auto" />
+				<aside class="notes">
+					<ul>
+						<li>És la caché más óptima posibles (2a BBDD, replica)</li>
+						<li>Webhook update</li>
+						<li>Veamos el código</li>
+						<li>Editar el diario, como demo del update (esperamos caché, 5 minutos)</li>
+					</ul>
+				</aside>
 			</section>
 			<section>
 				<h3>Resumen / Tips</h3>
