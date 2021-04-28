@@ -1,0 +1,11 @@
+---
+application:
+  name: "lego-js"
+  project: "lego.js"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-lego-js"
+  routes:
+  - application_name: "lego-js"
+    paths:
+    - "/*"
