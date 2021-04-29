@@ -20,14 +20,15 @@ export const getUsuarios = () => {
         'Santi1965',
         'migbara',
         'Esemega',
+        'AlexLucenaWeb',
         'delineas'
     ]
 
     // A morir de exito!
-    usuarios.push(...usuarios)
-    usuarios.push(...usuarios)
-    usuarios.push(...usuarios)
-    usuarios.push(...usuarios)
+    //usuarios.push(...usuarios)
+    //usuarios.push(...usuarios)
+    //usuarios.push(...usuarios)
+    //usuarios.push(...usuarios)
 
     return usuarios
 }
