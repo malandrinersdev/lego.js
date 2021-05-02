@@ -6,7 +6,7 @@ application:
 routers:
 - name: "main-lego-js"
   custom_domains:
-  - branch: master
+  - branch: main
     domain: insignias.malandriners.dev
   routes:
   - application_name: "lego-js"
