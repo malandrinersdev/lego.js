@@ -1,13 +1,13 @@
 {
   "name": "lego.js",
   "version": "0.0.1",
-  "description": "LEGO.js, un \"framework\" que usamos todos...",
+  "description": "API de insignias malandriners",
   "main": "index.js",
   "type": "module",
   "scripts": {
     "script": "node src/script.js",
     "client": "npx live-server",
-    "server": "npx nodemon src/server.js"
+    "start": "npx nodemon src/server.js"
   },
   "repository": {
     "type": "git",
