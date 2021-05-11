@@ -1,14 +1,14 @@
 ---
 application:
-  name: "lego-js"
-  project: "lego.js"
-  organization: "QoveryCommunity"
+    name: 'lego-js'
+    project: 'lego.js'
+    organization: 'QoveryCommunity'
 routers:
-- name: "main-lego-js"
-  custom_domains:
-  - branch: main
-    domain: insignias.malandriners.dev
-  routes:
-  - application_name: "lego-js"
-    paths:
-    - "/*"
+    - name: 'main-lego-js'
+      custom_domains:
+          - branch: main
+            domain: insignias.malandriners.dev
+      routes:
+          - application_name: 'lego-js'
+            paths:
+                - '/*'

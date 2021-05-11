@@ -34,9 +34,11 @@ app.use(responseTime((req, res, time) => console.log(req.path, time)))
 // API: Insignias de todos los usuarios
 app.use('/insignias', insigniasAPIRoutes)
 
-// Si llegamos aqui es que la petición no se ha tratado 
+// Si llegamos aqui es que la petición no se ha tratado
 app.use(function (req, res) {
-    res.status(404).json({ error: "Aquí no hay nada de nada...sigue buscando..." })
+    res.status(404).json({
+        error: 'Aquí no hay nada de nada...sigue buscando...',
+    })
 })
 
 // -----------------------------------------------

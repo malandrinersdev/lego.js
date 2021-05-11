@@ -4,7 +4,7 @@ let cache = {}
 export const setValueToCache = (key, value, ttl) => {
     cache[key] = {
         value,
-        expiresAt: ttl ? Date.now() + ttl : undefined
+        expiresAt: ttl ? Date.now() + ttl : undefined,
     }
 }
 

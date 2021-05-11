@@ -1,6 +1,6 @@
-version: "3"
+version: '3'
 services:
-  web:
-    build: .
-    expose:
-      - "3000"
+    web:
+        build: .
+        expose:
+            - '3000'
