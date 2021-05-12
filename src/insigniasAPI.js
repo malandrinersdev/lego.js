@@ -1,9 +1,16 @@
-import express from 'express'
-import { getUsuarios } from '../js/usuarios.js'
-import { obtenerDiarioUsuario } from '../js/diarios.js'
-import { calcularInsigniasDiario, obtenerHumorDiario } from '../js/insignias.js'
-import { getValueFromCache, setValueToCache, getCacheKeys } from './cache.js'
-import httpProxyMiddleware from 'http-proxy-middleware'
+const express = require('express')
+const { getUsuarios } = require('../js/usuarios.js')
+const { obtenerDiarioUsuario } = require('../js/diarios.js')
+const {
+    calcularInsigniasDiario,
+    obtenerHumorDiario,
+} = require('../js/insignias.js')
+const {
+    getValueFromCache,
+    setValueToCache,
+    getCacheKeys,
+} = require('./cache.js')
+const httpProxyMiddleware = require('http-proxy-middleware')
 const { createProxyMiddleware } = httpProxyMiddleware
 // A partir de node 14.13:
 // import { createProxyMiddleware } from 'http-proxy-middleware'
@@ -190,4 +197,4 @@ const obtenerColorDeHumor = (humor) => {
 
 // --------------------------------------
 
-export default router
+module.exports = router

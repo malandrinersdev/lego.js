@@ -3,7 +3,6 @@
     "version": "0.0.1",
     "description": "API de insignias malandriners",
     "main": "index.js",
-    "type": "module",
     "scripts": {
         "script": "node src/script.js",
         "client": "npx live-server",

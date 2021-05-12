@@ -1,7 +1,9 @@
-import fetch from 'node-fetch'
+const fetch = require('node-fetch')
 
-export const obtenerDiarioUsuario = (usuario, commit) => {
+const obtenerDiarioUsuario = (usuario, commit) => {
     return fetch(
         `https://raw.githubusercontent.com/${usuario}/reto-programa-en-pantuflas/${commit}/README.md`
     ).then((response) => response.text())
 }
+
+module.exports = { obtenerDiarioUsuario }

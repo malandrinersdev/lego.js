@@ -1,15 +1,12 @@
-import express from 'express'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import responseTime from 'response-time'
-import insigniasAPIRoutes from './insigniasAPI.js'
-import dotenv from 'dotenv'
-import bodyParser from 'body-parser'
+const express = require('express')
+const path = require('path')
+const { fileURLToPath } = require('url')
+const responseTime = require('response-time')
+const insigniasAPIRoutes = require('./insigniasAPI.js')
+const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
 
 dotenv.config()
-
-//we need to change up how __dirname is used for ES6 purposes --> https://github.com/nodejs/help/issues/2907
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 //Init express
 const app = express()

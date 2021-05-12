@@ -1,5 +1,8 @@
-import { obtenerDiarioUsuario } from '../js/diarios.js'
-import { obtenerHumorDiario, calcularInsigniasDiario } from '../js/insignias.js'
+const { obtenerDiarioUsuario } = require('../js/diarios.js')
+const {
+    obtenerHumorDiario,
+    calcularInsigniasDiario,
+} = require('../js/insignias.js')
 
 const usuario = 'sergioedo'
 const commit = 'main'

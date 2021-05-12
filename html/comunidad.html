@@ -38,16 +38,7 @@
             </div>
         </main>
     </body>
-    <script type="module">
-        import {
-            obtenerHumorDiario,
-            calcularInsigniasDiario,
-        } from '../js/insignias.js'
-        import { getUsuarios } from '../js/usuarios.js'
-
-        const urlParams = new URLSearchParams(window.location.search)
-        const modo = urlParams.get('modo') || 'servidor' // cliente|servidor
-
+    <script>
         function obtenerDiario(usuario, commit) {
             return fetch(
                 `https://raw.githubusercontent.com/${usuario}/reto-programa-en-pantuflas/${commit}/README.md`
@@ -105,37 +96,18 @@
             return trUsuario
         }
 
-        if (modo == 'cliente') {
-            console.time('load_data')
-            let count = 0
-            const usuarios = getUsuarios()
-            usuarios.map((usuario) => {
-                obtenerDiario(usuario, 'main').then((diarioMD) => {
-                    const humor = obtenerHumorDiario(diarioMD)
-                    const insignias = calcularInsigniasDiario(diarioMD)
+        console.time('load_data_from_api')
+        fetch(`/insignias`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                data.map((insigniasJSON) => {
+                    const { usuario, humor, insignias } = insigniasJSON
                     document
                         .getElementById('top')
                         .appendChild(usuarioTR(usuario, humor, insignias))
-
-                    // profile:
-                    count++
-                    if (count >= usuarios.length) console.timeEnd('load_data')
                 })
+                console.timeEnd('load_data_from_api')
             })
-        } else {
-            console.time('load_data_from_api')
-            fetch(`/insignias`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data)
-                    data.map((insigniasJSON) => {
-                        const { usuario, humor, insignias } = insigniasJSON
-                        document
-                            .getElementById('top')
-                            .appendChild(usuarioTR(usuario, humor, insignias))
-                    })
-                    console.timeEnd('load_data_from_api')
-                })
-        }
     </script>
 </html>

@@ -1,7 +1,7 @@
 let cache = {}
 
 //PUT
-export const setValueToCache = (key, value, ttl) => {
+const setValueToCache = (key, value, ttl) => {
     cache[key] = {
         value,
         expiresAt: ttl ? Date.now() + ttl : undefined,
@@ -9,7 +9,7 @@ export const setValueToCache = (key, value, ttl) => {
 }
 
 //GET
-export const getValueFromCache = (key) => {
+const getValueFromCache = (key) => {
     if (cache[key]) {
         if (cache[key].expiresAt) {
             const timeToExpire = cache[key].expiresAt - Date.now()
@@ -29,11 +29,18 @@ export const getValueFromCache = (key) => {
 }
 
 //KEYS
-export const getCacheKeys = () => {
+const getCacheKeys = () => {
     return Object.keys(cache)
 }
 
 //CLEAR
-export const clearCache = () => {
+const clearCache = () => {
     cache = {}
+}
+
+module.exports = {
+    setValueToCache,
+    getValueFromCache,
+    getCacheKeys,
+    clearCache,
 }
