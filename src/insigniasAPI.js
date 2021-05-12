@@ -100,7 +100,7 @@ router.get('/:user*', (req, res, next) => {
 })
 
 // API: insignias con shields.io
-router.get('/:user/humor/:humour', (req, res, next) => {
+router.get('/:user/humour/:humour', (req, res, next) => {
     const humour = req.params.humour
     createProxyMiddleware({
         target: 'https://img.shields.io/',

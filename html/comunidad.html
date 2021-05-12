@@ -97,7 +97,7 @@
         }
 
         console.time('load_data_from_api')
-        fetch(`/insignias`)
+        fetch(`/badges`)
             .then((response) => response.json())
             .then((data) => {
                 console.log(data)

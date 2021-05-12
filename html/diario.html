@@ -71,7 +71,7 @@
             document.getElementById('diary').innerHTML = diarioHTML
 
             console.time('load_data_from_api')
-            fetch(`/insignias/${user}`)
+            fetch(`/badges/${user}`)
                 .then((response) => response.json())
                 .then((JSONBadges) => {
                     console.log(JSONBadges)

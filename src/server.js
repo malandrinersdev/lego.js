@@ -2,7 +2,7 @@ const express = require('express')
 const path = require('path')
 const { fileURLToPath } = require('url')
 const responseTime = require('response-time')
-const insigniasAPIRoutes = require('./insigniasAPI.js')
+const badgesAPIRoutes = require('./insigniasAPI.js')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 
@@ -29,7 +29,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(responseTime((req, res, time) => console.log(req.path, time)))
 
 // API: Insignias de todos los usuarios
-app.use('/insignias', insigniasAPIRoutes)
+app.use('/badges', badgesAPIRoutes)
 
 // Si llegamos aqui es que la petición no se ha tratado
 app.use(function (req, res) {
