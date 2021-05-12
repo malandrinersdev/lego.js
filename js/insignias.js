@@ -31,7 +31,7 @@ const grinningPattern = [': ' + '\uD83D\uDE00', ': :grinning:'] // 😀
 const neutralFacePattern = [': ' + '\uD83D\uDE10', ': :neutral_face:'] // 😐
 const frowningFacePattern = [': ' + '\u2639', ': :frowning_face:'] //️ ️️️️☹️
 
-export function obtenerHumorDiario(diarioMD) {
+function obtenerHumorDiario(diarioMD) {
     const grinning = getCountIndexesOf(grinningPattern, diarioMD)
     const neutral_face = getCountIndexesOf(neutralFacePattern, diarioMD)
     const frowning_face = getCountIndexesOf(frowningFacePattern, diarioMD)
@@ -43,7 +43,7 @@ export function obtenerHumorDiario(diarioMD) {
     }
 }
 
-export function calcularInsigniasDiario(diarioMD) {
+function calcularInsigniasDiario(diarioMD) {
     const humor = obtenerHumorDiario(diarioMD)
     const insignias = []
     //FELIZ
@@ -99,4 +99,9 @@ export function calcularInsigniasDiario(diarioMD) {
         }
     }
     return insignias
+}
+
+module.exports = {
+    obtenerHumorDiario,
+    calcularInsigniasDiario,
 }

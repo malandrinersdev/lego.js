@@ -21,6 +21,20 @@ Al arrancar, el servidor está disponible en http://localhost:3000, e incluye fu
 
 Puedes comprobar el correcto funcionamiento con una petición a http://localhost:3000/insignias, que debe devolver información en formato JSON de las insignias otorgadas a los malandriners.
 
+Puedes comprobar los tests con:
+
+```
+npm run test
+```
+
+Para contribuir, aplicar formato al código con:
+
+```
+npm run prettier
+```
+
+(también hay integración con VSCode mediante [este plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode))
+
 # Despliegue con Docker
 
 Se puede compilar la imagen docker con:
