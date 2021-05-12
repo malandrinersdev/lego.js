@@ -1,5 +1,5 @@
 const express = require('express')
-const { getUsuarios } = require('../js/usuarios.js')
+const { getUsers } = require('../js/usuarios.js')
 const { getUserDiary } = require('../js/diarios.js')
 const { getDiaryBadges, getDiaryHumour } = require('../js/insignias.js')
 const {
@@ -18,7 +18,7 @@ const DEFAULT_CACHE_TTL = 24 * 60 * 60 * 1000
 const router = express.Router()
 
 const refrescarCache = (req, res, next, ttl) => {
-    const usuarios = getUsuarios()
+    const usuarios = getUsers()
     obtenerInsigniasUsuarios(usuarios)
         .then((insignias) => {
             // Cache global (todos los usuarios)
@@ -65,7 +65,7 @@ router.get('*', (req, res, next) => {
 
 // API: Insignias de todos los usuarios
 router.get('/', (req, res, next) => {
-    const usuarios = getUsuarios()
+    const usuarios = getUsers()
     obtenerInsigniasUsuarios(usuarios)
         .then((insignias) => {
             res.locals.APIResponse = insignias
@@ -148,7 +148,7 @@ const checkUsuario = (usuario) => {
     if (!usuario) {
         return { error: true, text: 'Debe indicar un usuario' }
     } else {
-        const usuarioEncontrado = getUsuarios().find((u) => u === usuario)
+        const usuarioEncontrado = getUsers().find((u) => u === usuario)
         if (usuarioEncontrado !== undefined) {
             return { error: false }
         } else {

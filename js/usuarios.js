@@ -1,4 +1,4 @@
-const getUsuarios = () => {
+const getUsers = () => {
     // A falta de base de datos...
     const usuarios = [
         'twochemist',
@@ -31,4 +31,4 @@ const getUsuarios = () => {
     return usuarios
 }
 
-module.exports = { getUsuarios }
+module.exports = { getUsers }
