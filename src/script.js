@@ -1,9 +1,9 @@
 const { getUserDiary } = require('../js/diarios.js')
 const { getDiaryHumour, getDiaryBadges } = require('../js/insignias.js')
 
-const usuario = 'sergioedo'
+const user = 'sergioedo'
 const commit = 'main'
-getUserDiary(usuario, commit).then((diarioMD) => {
+getUserDiary(user, commit).then((diarioMD) => {
     console.log(getDiaryHumour(diarioMD))
     console.log(getDiaryBadges(diarioMD))
 })
