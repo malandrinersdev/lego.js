@@ -5,7 +5,7 @@ import { calcularInsigniasDiario, obtenerHumorDiario } from '../js/insignias.js'
 import { getValueFromCache, setValueToCache, getCacheKeys } from './cache.js'
 import httpProxyMiddleware from 'http-proxy-middleware'
 const { createProxyMiddleware } = httpProxyMiddleware
-// A partir de node 14.13: 
+// A partir de node 14.13:
 // import { createProxyMiddleware } from 'http-proxy-middleware'
 // https://simonplend.com/node-js-now-supports-named-imports-from-commonjs-modules-but-what-does-that-mean/
 
@@ -16,13 +16,14 @@ const router = express.Router()
 const refrescarCache = (req, res, next, ttl) => {
     const usuarios = getUsuarios()
     obtenerInsigniasUsuarios(usuarios)
-        .then(insignias => {
+        .then((insignias) => {
             // Cache global (todos los usuarios)
             setValueToCache('/', insignias, ttl)
 
             //Cache por usuario
-            usuarios.map(usuario => {
-                const insigniasUsuario = insignias.filter(iu => iu.usuario === usuario) || []
+            usuarios.map((usuario) => {
+                const insigniasUsuario =
+                    insignias.filter((iu) => iu.usuario === usuario) || []
                 setValueToCache(`/${usuario}`, insigniasUsuario[0], ttl)
             })
 
@@ -62,12 +63,15 @@ router.get('*', (req, res, next) => {
 router.get('/', (req, res, next) => {
     const usuarios = getUsuarios()
     obtenerInsigniasUsuarios(usuarios)
-        .then(insignias => {
+        .then((insignias) => {
             res.locals.APIResponse = insignias
             next()
         })
-        .catch(error => {
-            next({ status: 500, message: `No se han podido obtener los diario de los usuarios` })
+        .catch((error) => {
+            next({
+                status: 500,
+                message: `No se han podido obtener los diario de los usuarios`,
+            })
         })
 })
 
@@ -79,12 +83,15 @@ router.get('/:usuario*', (req, res, next) => {
         next({ status: 400, message: check.text })
     } else {
         obtenerInsigniasUsuarios([usuario])
-            .then(insigniasUsuario => {
+            .then((insigniasUsuario) => {
                 res.locals.APIResponse = insigniasUsuario[0]
                 next()
             })
-            .catch(err => {
-                next({ status: 500, message: `No se ha podido obtener el diario del usuario ${usuario}` })
+            .catch((err) => {
+                next({
+                    status: 500,
+                    message: `No se ha podido obtener el diario del usuario ${usuario}`,
+                })
             })
     }
 })
@@ -98,12 +105,15 @@ router.get('/:usuario/humor/:humor', (req, res, next) => {
         pathRewrite: (path, reqProxy) => {
             const emojiHumor = obtenerEmojiDeHumor(humor)
             const colorHumor = obtenerColorDeHumor(humor)
-            const humorUsuario = res.locals.APIResponse && res.locals.APIResponse.humor[humor] || 0
+            const humorUsuario =
+                (res.locals.APIResponse &&
+                    res.locals.APIResponse.humor[humor]) ||
+                0
             return `/badge/${emojiHumor}-${humorUsuario}-${colorHumor}`
         },
         onProxyRes: (proxyRes, req, res) => {
             proxyRes.headers['Cache-control'] = 'no-store' // NO CACHE!
-        }
+        },
     })(req, res, next)
 })
 
@@ -125,7 +135,6 @@ router.use(function (err, req, res, next) {
     res.json({ error: err.message })
 })
 
-
 // --------------------------------------
 // HELPER FUNCTIONS
 // --------------------------------------
@@ -135,7 +144,7 @@ const checkUsuario = (usuario) => {
     if (!usuario) {
         return { error: true, text: 'Debe indicar un usuario' }
     } else {
-        const usuarioEncontrado = getUsuarios().find(u => u === usuario)
+        const usuarioEncontrado = getUsuarios().find((u) => u === usuario)
         if (usuarioEncontrado !== undefined) {
             return { error: false }
         } else {
@@ -146,26 +155,26 @@ const checkUsuario = (usuario) => {
 
 const obtenerInsigniasUsuarios = (usuarios) => {
     const commit = 'main'
-    const asyncInsignias = usuarios.map(usuario => {
-        return obtenerDiarioUsuario(usuario, commit)
-            .then(diarioMD => {
-                const humor = obtenerHumorDiario(diarioMD)
-                const insignias = calcularInsigniasDiario(diarioMD)
-                return { usuario, humor, insignias }
-            })
-    })
-    return Promise.all(asyncInsignias)
-        .then(insignias => {
-            const insigniasOrdenadas = insignias.sort((a, b) => (a.usuario.toLowerCase() > b.usuario.toLocaleLowerCase()) ? 1 : -1)
-            return insigniasOrdenadas
+    const asyncInsignias = usuarios.map((usuario) => {
+        return obtenerDiarioUsuario(usuario, commit).then((diarioMD) => {
+            const humor = obtenerHumorDiario(diarioMD)
+            const insignias = calcularInsigniasDiario(diarioMD)
+            return { usuario, humor, insignias }
         })
+    })
+    return Promise.all(asyncInsignias).then((insignias) => {
+        const insigniasOrdenadas = insignias.sort((a, b) =>
+            a.usuario.toLowerCase() > b.usuario.toLocaleLowerCase() ? 1 : -1
+        )
+        return insigniasOrdenadas
+    })
 }
 
 const obtenerEmojiDeHumor = (humor) => {
     const emojisHumor = {
         grinning: '%F0%9F%98%80',
         neutral_face: '%F0%9F%98%90',
-        frowning_face: '%F0%9F%98%95'
+        frowning_face: '%F0%9F%98%95',
     }
     return emojisHumor[humor] || 'humor'
 }
@@ -174,7 +183,7 @@ const obtenerColorDeHumor = (humor) => {
     const colorHumor = {
         grinning: 'green',
         neutral_face: 'blue',
-        frowning_face: 'red'
+        frowning_face: 'red',
     }
     return colorHumor[humor] || 'inactive'
 }

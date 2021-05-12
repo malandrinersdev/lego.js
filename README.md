@@ -4,8 +4,8 @@ API para el cálculo de insignias de la comunidad Malandriner.
 
 # Requisitos
 
-* Node >= 13
-* Docker + Docker Compose (sólo para despliegue)
+-   Node >= 13
+-   Docker + Docker Compose (sólo para despliegue)
 
 # Entorno de desarrollo
 

@@ -1,24 +1,26 @@
 // https://stackoverflow.com/questions/3410464/how-to-find-indices-of-all-occurrences-of-one-string-in-another-in-javascript
 function getIndexesOf(searchStr, str, caseSensitive) {
-    var searchStrLen = searchStr.length;
+    var searchStrLen = searchStr.length
     if (searchStrLen == 0) {
-        return [];
+        return []
     }
-    var startIndex = 0, index, indices = [];
+    var startIndex = 0,
+        index,
+        indices = []
     if (!caseSensitive) {
-        str = str.toLowerCase();
-        searchStr = searchStr.toLowerCase();
+        str = str.toLowerCase()
+        searchStr = searchStr.toLowerCase()
     }
     while ((index = str.indexOf(searchStr, startIndex)) > -1) {
-        indices.push(index);
-        startIndex = index + searchStrLen;
+        indices.push(index)
+        startIndex = index + searchStrLen
     }
-    return indices;
+    return indices
 }
 
 function getCountIndexesOf(searchStrArray, str, caseSensitive) {
     let sum = 0
-    searchStrArray.map(searchStr => {
+    searchStrArray.map((searchStr) => {
         sum += getIndexesOf(searchStr, str, caseSensitive).length
     })
     return sum
@@ -37,7 +39,7 @@ export function obtenerHumorDiario(diarioMD) {
         grinning,
         neutral_face,
         frowning_face,
-        total: grinning + neutral_face + frowning_face
+        total: grinning + neutral_face + frowning_face,
     }
 }
 
@@ -47,44 +49,51 @@ export function calcularInsigniasDiario(diarioMD) {
     //FELIZ
     if (humor.grinning >= 3) {
         insignias.push({
-            url_image: 'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-chanclahappy3.png',
-            type: 'humor'
+            url_image:
+                'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-chanclahappy3.png',
+            type: 'humor',
         })
         if (humor.grinning >= 7) {
             insignias.push({
-                url_image: 'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-chanclahappy7.png',
-                type: 'humor'
+                url_image:
+                    'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-chanclahappy7.png',
+                type: 'humor',
             })
         }
     }
     //TRISTE
     if (humor.frowning_face >= 3) {
         insignias.push({
-            url_image: 'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-botagrumpy3.png',
-            type: 'humor'
+            url_image:
+                'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-botagrumpy3.png',
+            type: 'humor',
         })
         if (humor.frowning_face >= 7) {
             insignias.push({
-                url_image: 'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-botagrumpy7.png',
-                type: 'humor'
+                url_image:
+                    'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-botagrumpy7.png',
+                type: 'humor',
             })
         }
     }
     //Calcular las insignias de apuntes a partir del humor (1 humor = 1 apunte)
     if (humor.total >= 1) {
         insignias.push({
-            url_image: 'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-pantufla1.png',
-            type: 'diario'
+            url_image:
+                'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-pantufla1.png',
+            type: 'diario',
         })
         if (humor.total >= 5) {
             insignias.push({
-                url_image: 'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-pantufla5.png',
-                type: 'diario'
+                url_image:
+                    'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-pantufla5.png',
+                type: 'diario',
             })
             if (humor.total >= 15) {
                 insignias.push({
-                    url_image: 'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-pantufla15.png',
-                    type: 'diario'
+                    url_image:
+                        'https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/programaenpantuflas-pantufla15.png',
+                    type: 'diario',
                 })
             }
         }

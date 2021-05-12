@@ -1,6 +1,4 @@
-
 export const getUsuarios = () => {
-
     // A falta de base de datos...
     const usuarios = [
         'twochemist',
@@ -21,7 +19,7 @@ export const getUsuarios = () => {
         'migbara',
         'Esemega',
         'AlexLucenaWeb',
-        'delineas'
+        'delineas',
     ]
 
     // A morir de exito!
