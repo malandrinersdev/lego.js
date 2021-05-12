@@ -50,7 +50,7 @@
         <main id="diario" class="markdown-body"></main>
     </body>
     <script type="module">
-        function obtenerDiarioUsuario(usuario, commit) {
+        function getUserDiary(usuario, commit) {
             return fetch(
                 `https://raw.githubusercontent.com/${usuario}/reto-programa-en-pantuflas/${commit}/README.md`
             ).then((response) => response.text())
@@ -62,7 +62,7 @@
         // const commit = 'cc17ccd3d132ddfee10542b580bc3ed041c9c79b'
         // const commit = '9eb6be427eaa5b7d11550bc97a3d30295f5f3326'
 
-        obtenerDiarioUsuario(usuario, commit).then((diarioMD) => {
+        getUserDiary(usuario, commit).then((diarioMD) => {
             var md = window.markdownit({
                 html: true,
             })
