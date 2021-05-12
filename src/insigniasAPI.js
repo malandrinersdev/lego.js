@@ -1,10 +1,7 @@
 const express = require('express')
 const { getUsuarios } = require('../js/usuarios.js')
 const { obtenerDiarioUsuario } = require('../js/diarios.js')
-const {
-    calcularInsigniasDiario,
-    obtenerHumorDiario,
-} = require('../js/insignias.js')
+const { getDiaryBadges, getDiaryHumour } = require('../js/insignias.js')
 const {
     getValueFromCache,
     setValueToCache,
@@ -164,8 +161,8 @@ const obtenerInsigniasUsuarios = (usuarios) => {
     const commit = 'main'
     const asyncInsignias = usuarios.map((usuario) => {
         return obtenerDiarioUsuario(usuario, commit).then((diarioMD) => {
-            const humor = obtenerHumorDiario(diarioMD)
-            const insignias = calcularInsigniasDiario(diarioMD)
+            const humor = getDiaryHumour(diarioMD)
+            const insignias = getDiaryBadges(diarioMD)
             return { usuario, humor, insignias }
         })
     })

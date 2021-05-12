@@ -1,11 +1,8 @@
 const fs = require('fs')
 const path = require('path')
-const {
-    calcularInsigniasDiario,
-    obtenerHumorDiario,
-} = require('./insignias.js')
+const { getDiaryBadges, getDiaryHumour } = require('./insignias.js')
 
-const getDiarySample = (diarySample) => {
+const getSampleDiary = (diarySample) => {
     return fs.readFileSync(
         path.join(
             __dirname,
@@ -19,15 +16,15 @@ const getDiarySample = (diarySample) => {
 }
 
 test('get badges from basic diary', () => {
-    const diary = getDiarySample('basic')
-    const badges = calcularInsigniasDiario(diary)
+    const diary = getSampleDiary('basic')
+    const badges = getDiaryBadges(diary)
 
     expect(badges.length).toBe(1)
 })
 
 test('get humour from basic diary', () => {
-    const diary = getDiarySample('basic')
-    const humour = obtenerHumorDiario(diary)
+    const diary = getSampleDiary('basic')
+    const humour = getDiaryHumour(diary)
 
     expect(humour.grinning).toBe(1)
     expect(humour.neutral_face).toBe(1)
