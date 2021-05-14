@@ -14,8 +14,14 @@ const port = 3000
 // -----------------------------------------------
 
 // Contenido estático
-app.use('/html', express.static(path.join(__dirname, '..', 'html')))
-app.use('/js', express.static(path.join(__dirname, '..', 'js')))
+app.use(
+    '/comunidad',
+    express.static(path.join(__dirname, '..', 'html', 'comunidad.html'))
+)
+app.use(
+    '/diario',
+    express.static(path.join(__dirname, '..', 'html', 'diario.html'))
+)
 
 // Loader.io
 app.use('/loaderio-*', (req, res) => {
