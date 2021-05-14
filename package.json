@@ -5,7 +5,6 @@
     "main": "index.js",
     "scripts": {
         "script": "node src/script.js",
-        "client": "npx live-server",
         "start": "npx nodemon src/server.js",
         "prettier": "prettier --write .",
         "test": "jest --watchAll"
