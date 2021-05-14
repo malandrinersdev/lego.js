@@ -1,4 +1,5 @@
 // https://stackoverflow.com/questions/3410464/how-to-find-indices-of-all-occurrences-of-one-string-in-another-in-javascript
+
 function getIndexesOf(searchStr, str, caseSensitive) {
     var searchStrLen = searchStr.length
     if (searchStrLen == 0) {

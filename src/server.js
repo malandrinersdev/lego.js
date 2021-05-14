@@ -1,8 +1,7 @@
 const express = require('express')
 const path = require('path')
-const { fileURLToPath } = require('url')
 const responseTime = require('response-time')
-const badgesAPIRoutes = require('./insigniasAPI.js')
+const badgesAPIRoutes = require('./api/badges')
 const dotenv = require('dotenv')
 const bodyParser = require('body-parser')
 

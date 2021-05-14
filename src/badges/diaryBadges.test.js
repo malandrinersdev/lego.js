@@ -1,11 +1,12 @@
 const fs = require('fs')
 const path = require('path')
-const { getDiaryBadges, getDiaryHumour } = require('./insignias.js')
+const { getDiaryBadges, getDiaryHumour } = require('./diaryBadges')
 
 const getSampleDiary = (diarySample) => {
     return fs.readFileSync(
         path.join(
             __dirname,
+            '..',
             '..',
             'data',
             'diaries',

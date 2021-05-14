@@ -35,6 +35,19 @@ npm run prettier
 
 (también hay integración con VSCode mediante [este plugin](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode))
 
+# Estructura proyecto
+
+/
+├─ /data
+│··├─ /diaries (datos de diarios reto en pantuflas)
+│··└─ users.json (datos básicos de usuarios malandriners)
+├─ /docs (documentación)
+├─ /html (cliente estático)
+└─ /src
+···├─ /api (distintas APIs para obtener/gestionar las insignias)
+···├─ /badges (módulos para calcular las insignias)
+···└─ /datasources (fuentes de datos para calcular las insignias)
+
 # Despliegue con Docker
 
 Se puede compilar la imagen docker con:

@@ -1,5 +1,5 @@
-const { getUserDiary } = require('../js/diarios.js')
-const { getDiaryHumour, getDiaryBadges } = require('../js/insignias.js')
+const { getUserDiary } = require('../src/datasources/diaries')
+const { getDiaryHumour, getDiaryBadges } = require('../src/badges/diaryBadges')
 
 const user = 'sergioedo'
 const commit = 'main'

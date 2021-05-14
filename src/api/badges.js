@@ -1,12 +1,12 @@
 const express = require('express')
-const { getUsers } = require('../js/usuarios.js')
-const { getUserDiary } = require('../js/diarios.js')
-const { getDiaryBadges, getDiaryHumour } = require('../js/insignias.js')
+const { getUsers } = require('../datasources/users')
+const { getUserDiary } = require('../datasources/diaries')
+const { getDiaryBadges, getDiaryHumour } = require('../badges/diaryBadges')
 const {
     getValueFromCache,
     setValueToCache,
     getCacheKeys,
-} = require('./cache.js')
+} = require('../cache.js')
 const httpProxyMiddleware = require('http-proxy-middleware')
 const { createProxyMiddleware } = httpProxyMiddleware
 // A partir de node 14.13:
