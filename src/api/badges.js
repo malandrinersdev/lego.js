@@ -1,6 +1,6 @@
 const express = require('express')
 const { getUsers } = require('../datasources/users')
-const { getUserDiary } = require('../datasources/diaries')
+const { getUserDiary } = require('../datasources/userDiaries')
 const { getDiaryBadges, getDiaryHumour } = require('../badges/diaryBadges')
 const {
     getValueFromCache,
