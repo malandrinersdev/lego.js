@@ -1,6 +1,6 @@
-export const getUsuarios = () => {
+const getUsers = () => {
     // A falta de base de datos...
-    const usuarios = [
+    const users = [
         'twochemist',
         'terepebernal',
         'skcode7',
@@ -23,10 +23,12 @@ export const getUsuarios = () => {
     ]
 
     // A morir de exito!
-    //usuarios.push(...usuarios)
-    //usuarios.push(...usuarios)
-    //usuarios.push(...usuarios)
-    //usuarios.push(...usuarios)
+    //users.push(...users)
+    //users.push(...users)
+    //users.push(...users)
+    //users.push(...users)
 
-    return usuarios
+    return users
 }
+
+module.exports = { getUsers }

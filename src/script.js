@@ -1,9 +1,9 @@
-import { obtenerDiarioUsuario } from '../js/diarios.js'
-import { obtenerHumorDiario, calcularInsigniasDiario } from '../js/insignias.js'
+const { getUserDiary } = require('../src/datasources/diaries')
+const { getDiaryHumour, getDiaryBadges } = require('../src/badges/diaryBadges')
 
-const usuario = 'sergioedo'
+const user = 'sergioedo'
 const commit = 'main'
-obtenerDiarioUsuario(usuario, commit).then((diarioMD) => {
-    console.log(obtenerHumorDiario(diarioMD))
-    console.log(calcularInsigniasDiario(diarioMD))
+getUserDiary(user, commit).then((diarioMD) => {
+    console.log(getDiaryHumour(diarioMD))
+    console.log(getDiaryBadges(diarioMD))
 })

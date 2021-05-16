@@ -1,15 +1,11 @@
-import express from 'express'
-import path from 'path'
-import { fileURLToPath } from 'url'
-import responseTime from 'response-time'
-import insigniasAPIRoutes from './insigniasAPI.js'
-import dotenv from 'dotenv'
-import bodyParser from 'body-parser'
+const express = require('express')
+const path = require('path')
+const responseTime = require('response-time')
+const badgesAPIRoutes = require('./api/badges')
+const dotenv = require('dotenv')
+const bodyParser = require('body-parser')
 
 dotenv.config()
-
-//we need to change up how __dirname is used for ES6 purposes --> https://github.com/nodejs/help/issues/2907
-const __dirname = path.dirname(fileURLToPath(import.meta.url))
 
 //Init express
 const app = express()
@@ -18,8 +14,14 @@ const port = 3000
 // -----------------------------------------------
 
 // Contenido estático
-app.use('/html', express.static(path.join(__dirname, '..', 'html')))
-app.use('/js', express.static(path.join(__dirname, '..', 'js')))
+app.use(
+    '/comunidad',
+    express.static(path.join(__dirname, '..', 'html', 'comunidad.html'))
+)
+app.use(
+    '/diario',
+    express.static(path.join(__dirname, '..', 'html', 'diario.html'))
+)
 
 // Loader.io
 app.use('/loaderio-*', (req, res) => {
@@ -32,7 +34,7 @@ app.use(bodyParser.urlencoded({ extended: true }))
 app.use(responseTime((req, res, time) => console.log(req.path, time)))
 
 // API: Insignias de todos los usuarios
-app.use('/insignias', insigniasAPIRoutes)
+app.use('/badges', badgesAPIRoutes)
 
 // Si llegamos aqui es que la petición no se ha tratado
 app.use(function (req, res) {

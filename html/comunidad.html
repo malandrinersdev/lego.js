@@ -38,19 +38,10 @@
             </div>
         </main>
     </body>
-    <script type="module">
-        import {
-            obtenerHumorDiario,
-            calcularInsigniasDiario,
-        } from '../js/insignias.js'
-        import { getUsuarios } from '../js/usuarios.js'
-
-        const urlParams = new URLSearchParams(window.location.search)
-        const modo = urlParams.get('modo') || 'servidor' // cliente|servidor
-
-        function obtenerDiario(usuario, commit) {
+    <script>
+        function obtenerDiario(user, commit) {
             return fetch(
-                `https://raw.githubusercontent.com/${usuario}/reto-programa-en-pantuflas/${commit}/README.md`
+                `https://raw.githubusercontent.com/${user}/reto-programa-en-pantuflas/${commit}/README.md`
             ).then((response) => response.text())
         }
 
@@ -61,81 +52,62 @@
             return imgTag
         }
 
-        const humorTD = (humor) => {
-            const tdHumor = document.createElement('td')
-            tdHumor.width = '20%'
-            tdHumor.appendChild(
+        const getHumourTD = (humour) => {
+            const humourTD = document.createElement('td')
+            humourTD.width = '20%'
+            humourTD.appendChild(
                 imageTag(
-                    `https://img.shields.io/badge/%F0%9F%98%80-${humor.grinning}-green.svg`
+                    `https://img.shields.io/badge/%F0%9F%98%80-${humour.grinning}-green.svg`
                 )
             )
-            tdHumor.appendChild(
+            humourTD.appendChild(
                 imageTag(
-                    `https://img.shields.io/badge/%F0%9F%98%90-${humor.neutral_face}-blue.svg`
+                    `https://img.shields.io/badge/%F0%9F%98%90-${humour.neutral_face}-blue.svg`
                 )
             )
-            tdHumor.appendChild(
+            humourTD.appendChild(
                 imageTag(
-                    `https://img.shields.io/badge/%F0%9F%99%81-${humor.frowning_face}-red.svg`
+                    `https://img.shields.io/badge/%F0%9F%99%81-${humour.frowning_face}-red.svg`
                 )
             )
-            return tdHumor
+            return humourTD
         }
 
-        const insigniasTD = (insignias) => {
-            const tdHumor = document.createElement('td')
-            tdHumor.width = '60%'
-            insignias.map((insignia) => {
-                tdHumor.appendChild(imageTag(insignia.url_image, 100))
+        const getBadgesTD = (badges) => {
+            const tdHumour = document.createElement('td')
+            tdHumour.width = '60%'
+            badges.map((badge) => {
+                tdHumour.appendChild(imageTag(badge.url_image, 100))
             })
-            return tdHumor
+            return tdHumour
         }
 
-        const usuarioTR = (usuario, humor, insignias) => {
+        const getUserTR = (user, humour, badges) => {
             // Creamos la fila del usuario, con su info de humor+insignias
-            const trUsuario = document.createElement('tr')
-            const tdNombre = document.createElement('td')
-            tdNombre.width = '20%'
-            tdNombre.innerText = usuario
-            trUsuario.appendChild(tdNombre)
+            const userTR = document.createElement('tr')
+            const usernameTD = document.createElement('td')
+            usernameTD.width = '20%'
+            usernameTD.innerText = user
+            userTR.appendChild(usernameTD)
 
-            trUsuario.appendChild(humorTD(humor))
-            trUsuario.appendChild(insigniasTD(insignias))
+            userTR.appendChild(getHumourTD(humour))
+            userTR.appendChild(getBadgesTD(badges))
 
-            return trUsuario
+            return userTR
         }
 
-        if (modo == 'cliente') {
-            console.time('load_data')
-            let count = 0
-            const usuarios = getUsuarios()
-            usuarios.map((usuario) => {
-                obtenerDiario(usuario, 'main').then((diarioMD) => {
-                    const humor = obtenerHumorDiario(diarioMD)
-                    const insignias = calcularInsigniasDiario(diarioMD)
+        console.time('load_data_from_api')
+        fetch(`/badges`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data)
+                data.map((JSONBadges) => {
+                    const { user, humour, badges } = JSONBadges
                     document
                         .getElementById('top')
-                        .appendChild(usuarioTR(usuario, humor, insignias))
-
-                    // profile:
-                    count++
-                    if (count >= usuarios.length) console.timeEnd('load_data')
+                        .appendChild(getUserTR(user, humour, badges))
                 })
+                console.timeEnd('load_data_from_api')
             })
-        } else {
-            console.time('load_data_from_api')
-            fetch(`/insignias`)
-                .then((response) => response.json())
-                .then((data) => {
-                    console.log(data)
-                    data.map((insigniasJSON) => {
-                        const { usuario, humor, insignias } = insigniasJSON
-                        document
-                            .getElementById('top')
-                            .appendChild(usuarioTR(usuario, humor, insignias))
-                    })
-                    console.timeEnd('load_data_from_api')
-                })
-        }
     </script>
 </html>
