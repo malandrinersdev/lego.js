@@ -1,5 +1,5 @@
 const express = require('express')
-const { getUsers } = require('../datasources/users')
+const { getUsers, userExists } = require('../datasources/users')
 const { getUserDiary } = require('../datasources/userDiaries')
 const { getDiaryBadges, getDiaryHumour } = require('../badges/diaryBadges')
 const {
@@ -147,8 +147,7 @@ const checkUser = (user) => {
     if (!user) {
         return { error: true, text: 'You must set a user' }
     } else {
-        const foundUser = getUsers().find((u) => u === user)
-        if (foundUser !== undefined) {
+        if (userExists(user)) {
             return { error: false }
         } else {
             return { error: true, text: 'Invalid user' }

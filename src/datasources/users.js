@@ -14,6 +14,11 @@ const getUsers = (config) => () => {
     }
 }
 
+const userExists = (getUsers) => (user) => {
+    const foundUser = getUsers().find((u) => u === user)
+    return foundUser !== undefined
+}
+
 const defaultConfig = {
     source: 'file', // get users from: 'file' or 'array'
     // from file:
@@ -22,11 +27,16 @@ const defaultConfig = {
     users: [],
 }
 
+const defaultGetUsers = getUsers(defaultConfig)
+
 module.exports = {
-    getUsers: getUsers(defaultConfig),
+    getUsers: defaultGetUsers,
+    userExists: userExists(defaultGetUsers),
     config: (config = defaultConfig) => {
+        const configGetUsers = getUsers(config)
         return {
-            getUsers: getUsers(config),
+            getUsers: configGetUsers,
+            userExists: userExists(configGetUsers),
         }
     },
 }

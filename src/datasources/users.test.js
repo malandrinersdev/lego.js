@@ -2,7 +2,7 @@ const path = require('path')
 
 const testUsers = ['pepe', 'manolo', 'jose']
 
-const { getUsers: getUsersFromArray } = require('./users').config({
+const { getUsers: getUsersFromArray, userExists } = require('./users').config({
     source: 'array',
     users: testUsers,
 })
@@ -21,4 +21,12 @@ const someRealUsers = ['delineas', 'sergioedo']
 test('get users from file', () => {
     const users = getUsersFromFile()
     expect(users).toEqual(expect.arrayContaining(someRealUsers))
+})
+
+test('check if user exists from user array', () => {
+    expect(userExists(testUsers[0])).toBe(true)
+})
+
+test('check if user not exists from user array', () => {
+    expect(userExists('user_not_valid')).toBe(false)
 })
