@@ -1,13 +1,13 @@
 const fs = require('fs')
 const path = require('path')
 
-const getUsersFromFile = (file) => {
+const readJSONFile = (file) => {
     return JSON.parse(fs.readFileSync(file, 'utf8'))
 }
 
 const getUsers = (config) => () => {
     if (config.source === 'file') {
-        return getUsersFromFile(config.fileName)
+        return readJSONFile(config.fileName)
     } else {
         // source 'array'
         return config.users || []
