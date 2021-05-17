@@ -1,4 +1,4 @@
-// https://stackoverflow.com/questions/3410464/how-to-find-indices-of-all-occurrences-of-one-string-in-another-in-javascript
+const { getUserDiary } = require('../datasources/userDiaries')
 
 function getIndexesOf(searchStr, str, caseSensitive) {
     var searchStrLen = searchStr.length
@@ -32,10 +32,10 @@ const grinningPattern = [': ' + '\uD83D\uDE00', ': :grinning:'] // 😀
 const neutralFacePattern = [': ' + '\uD83D\uDE10', ': :neutral_face:'] // 😐
 const frowningFacePattern = [': ' + '\u2639', ': :frowning_face:'] //️ ️️️️☹️
 
-function getDiaryHumour(diarioMD) {
-    const grinning = getCountIndexesOf(grinningPattern, diarioMD)
-    const neutral_face = getCountIndexesOf(neutralFacePattern, diarioMD)
-    const frowning_face = getCountIndexesOf(frowningFacePattern, diarioMD)
+function getDiaryHumour(diaryMD) {
+    const grinning = getCountIndexesOf(grinningPattern, diaryMD)
+    const neutral_face = getCountIndexesOf(neutralFacePattern, diaryMD)
+    const frowning_face = getCountIndexesOf(frowningFacePattern, diaryMD)
     return {
         grinning,
         neutral_face,
@@ -44,8 +44,8 @@ function getDiaryHumour(diarioMD) {
     }
 }
 
-function getDiaryBadges(diarioMD) {
-    const humor = getDiaryHumour(diarioMD)
+function getDiaryBadges(diaryMD) {
+    const humor = getDiaryHumour(diaryMD)
     const badges = []
     //FELIZ
     if (humor.grinning >= 3) {
@@ -102,7 +102,16 @@ function getDiaryBadges(diarioMD) {
     return badges
 }
 
+function getUserDiaryBadges(user) {
+    return getUserDiary(user, 'main').then((userDiary) => {
+        const humour = getDiaryHumour(userDiary)
+        const badges = getDiaryBadges(userDiary)
+        return { user, humour, badges }
+    })
+}
+
 module.exports = {
     getDiaryHumour,
     getDiaryBadges,
+    getUserDiaryBadges,
 }

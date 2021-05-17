@@ -5,13 +5,17 @@ const readJSONFile = (file) => {
     return JSON.parse(fs.readFileSync(file, 'utf8'))
 }
 
-const getUserBadges = (config) => () => {
+const getUsersBadges = (config) => () => {
     if (config.source === 'file') {
         return readJSONFile(config.fileName)
     } else {
         // source 'array'
-        return config.userBadges || []
+        return config.usersBadges || []
     }
+}
+
+const getUserBadges = (getUsersBadges) => (user) => {
+    return getUsersBadges().find((userBadge) => userBadge.user === user)
 }
 
 const defaultConfig = {
@@ -19,14 +23,19 @@ const defaultConfig = {
     // from file:
     fileName: path.join(__dirname, '..', '..', 'data', 'userBadges.json'),
     // from array:
-    users: [],
+    usersBadges: [],
 }
 
+const defaultGetUsersBadges = getUsersBadges(defaultConfig)
+
 module.exports = {
-    getUserBadges: getUserBadges(defaultConfig),
+    getUsersBadges: defaultGetUsersBadges,
+    getUserBadges: getUserBadges(defaultGetUsersBadges),
     config: (config) => {
+        const configGetUsersBadges = getUsersBadges(config)
         return {
-            getUserBadges: getUserBadges(config),
+            getUsersBadges: configGetUsersBadges,
+            getUserBadges: getUserBadges(configGetUsersBadges),
         }
     },
 }

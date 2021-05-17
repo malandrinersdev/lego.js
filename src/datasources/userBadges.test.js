@@ -1,6 +1,6 @@
 const path = require('path')
 
-const testUserBadges = [
+const testUsersBadges = [
     {
         user: 'user01',
         badges: [
@@ -28,29 +28,34 @@ const testUserBadges = [
     },
 ]
 
-const { getUserBadges: getUserBadgesFromArray } =
+const { getUsersBadges: getUsersBadgesFromArray, getUserBadges } =
     require('./userBadges').config({
         source: 'array',
-        userBadges: testUserBadges,
+        usersBadges: testUsersBadges,
     })
 
-test('get user badges from array', () => {
-    const userBadges = getUserBadgesFromArray()
-    expect(userBadges).toEqual(testUserBadges)
+test('get users badges from array', () => {
+    const usersBadges = getUsersBadgesFromArray()
+    expect(usersBadges).toEqual(testUsersBadges)
 })
 
-const { getUserBadges: getUserBadgesFromFile } = require('./userBadges').config(
-    {
+const { getUsersBadges: getUsersBadgesFromFile } =
+    require('./userBadges').config({
         source: 'file',
         fileName: path.join(__dirname, '..', '..', 'data', 'userBadges.json'),
-    }
-)
+    })
 const someRealUsersWithBadges = ['delineas', 'sergioedo']
 
-test('get user badges from file', () => {
-    const userBadges = getUserBadgesFromFile()
-    const userWithBadges = userBadges.map((ua) => ua.user)
+test('get users badges from file', () => {
+    const usersBadges = getUsersBadgesFromFile()
+    const userWithBadges = usersBadges.map((ua) => ua.user)
     expect(userWithBadges).toEqual(
         expect.arrayContaining(someRealUsersWithBadges)
     )
+})
+
+test('get user01 badges (from array)', () => {
+    const userBadges = getUserBadges('user01')
+    const expectedUserBadges = testUsersBadges[0]
+    expect(userBadges).toEqual(expectedUserBadges)
 })
