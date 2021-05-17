@@ -21,6 +21,9 @@ test('get badges from basic diary', () => {
     const badges = getDiaryBadges(diary)
 
     expect(badges.length).toBe(1)
+    expect(badges[0]).toHaveProperty('type')
+    expect(badges[0]).toHaveProperty('name')
+    expect(badges[0]).toHaveProperty('url')
 })
 
 test('get humour from basic diary', () => {
