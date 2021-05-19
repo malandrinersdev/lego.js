@@ -44,13 +44,13 @@ const { getUsersBadges: getUsersBadgesFromFile } =
         source: 'file',
         fileName: path.join(__dirname, '..', '..', 'data', 'userBadges.json'),
     })
-const someRealUsersWithBadges = ['delineas', 'sergioedo']
+const someFileUsersWithBadges = ['user01', 'user03']
 
 test('get users badges from file', () => {
     const usersBadges = getUsersBadgesFromFile()
     const userWithBadges = usersBadges.map((ua) => ua.user)
     expect(userWithBadges).toEqual(
-        expect.arrayContaining(someRealUsersWithBadges)
+        expect.arrayContaining(someFileUsersWithBadges)
     )
 })
 

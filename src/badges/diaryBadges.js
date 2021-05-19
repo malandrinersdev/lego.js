@@ -103,7 +103,7 @@ function getDiaryBadges(diaryMD) {
 }
 
 function getUserDiaryBadges(user) {
-    return getUserDiary(user, 'main').then((userDiary) => {
+    return getUserDiary(user).then((userDiary) => {
         const humour = getDiaryHumour(userDiary)
         const badges = getDiaryBadges(userDiary)
         return { user, humour, badges }

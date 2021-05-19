@@ -16,11 +16,11 @@ const { getUsers: getUsersFromFile } = require('./users').config({
     source: 'file',
     fileName: path.join(__dirname, '..', '..', 'data', 'users.json'),
 })
-const someRealUsers = ['delineas', 'sergioedo']
+const someFileUsers = ['user01', 'user03']
 
 test('get users from file', () => {
     const users = getUsersFromFile()
-    expect(users).toEqual(expect.arrayContaining(someRealUsers))
+    expect(users).toEqual(expect.arrayContaining(someFileUsers))
 })
 
 test('check if user exists from user array', () => {
