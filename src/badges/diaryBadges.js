@@ -1,4 +1,7 @@
-const { getUserDiary } = require('../datasources/userDiaries')
+const dsConfig = require('../config').datasources
+const { getUserDiary } = require('../datasources/userDiaries').config(
+    dsConfig.userDiaries
+)
 
 function getIndexesOf(searchStr, str, caseSensitive) {
     var searchStrLen = searchStr.length

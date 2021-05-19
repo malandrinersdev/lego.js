@@ -3,7 +3,7 @@ const path = require('path')
 const fsp = require('fs').promises
 
 const getUserDiary = (config) => (user) => {
-    if (config.type === 'github') {
+    if (config.source === 'github') {
         return fetch(
             `https://raw.githubusercontent.com/${user}/reto-programa-en-pantuflas/${config.commit}/README.md`
         ).then((response) => response.text())

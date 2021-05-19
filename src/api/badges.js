@@ -1,6 +1,11 @@
 const express = require('express')
-const { getUsers, userExists } = require('../datasources/users')
-const { getUserBadges } = require('../datasources/userBadges')
+const dsConfig = require('../config').datasources
+const { getUsers, userExists } = require('../datasources/users').config(
+    dsConfig.users
+)
+const { getUserBadges } = require('../datasources/userBadges').config(
+    dsConfig.userBadges
+)
 const { getUserDiaryBadges } = require('../badges/diaryBadges')
 const {
     getValueFromCache,
