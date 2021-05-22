@@ -19,7 +19,7 @@ npm start
 
 Al arrancar, el servidor está disponible en http://localhost:3000, e incluye funcionalidad de hot-reload mediante [nodemon](https://github.com/remy/nodemon).
 
-Puedes comprobar el correcto funcionamiento con una petición a http://localhost:3000/insignias, que debe devolver información en formato JSON de las insignias otorgadas a los malandriners.
+Puedes comprobar el correcto funcionamiento con una petición a http://localhost:3000/badges, que debe devolver información en formato JSON de las insignias otorgadas a los malandriners.
 
 O bien, abrir la página de comunidad en http://localhost:3000/comunidad
 
