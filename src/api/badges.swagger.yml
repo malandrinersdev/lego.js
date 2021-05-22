@@ -1,0 +1,80 @@
+openapi: 3.0.0
+info:
+    title: Badges API
+    version: 1.0.0
+paths:
+    /badges:
+        get:
+            summary: Get all user badges
+            responses:
+                200:
+                    description: Array with user badges and humour information
+                    content:
+                        application/json:
+                            schema:
+                                type: array
+                                items:
+                                    $ref: '#/components/schemas/UserBadges'
+    /badges/{userId}:
+        get:
+            summary: Get user badges
+            parameters:
+                - in: path
+                  name: userId
+                  schema:
+                      type: string
+                  required: true
+                  description: github user identifier
+            responses:
+                200:
+                    description: Object with an user badges and humour information
+                    content:
+                        application/json:
+                            schema:
+                                $ref: '#/components/schemas/UserBadges'
+components:
+    schemas:
+        UserHumour:
+            type: object
+            required:
+                - grinning
+                - neutral_face
+                - frowning_face
+                - total
+            properties:
+                grinning:
+                    type: number
+                neutral_face:
+                    type: number
+                frowning_face:
+                    type: number
+                total:
+                    type: number
+        Badge:
+            type: object
+            required:
+                - url
+                - type
+                - name
+            properties:
+                url:
+                    type: string
+                type:
+                    type: string
+                name:
+                    type: string
+        UserBadges:
+            type: object
+            required:
+                - user
+                - humour
+                - badges
+            properties:
+                user:
+                    type: string
+                humour:
+                    $ref: '#/components/schemas/UserHumour'
+                badges:
+                    type: array
+                    items:
+                        $ref: '#/components/schemas/Badge'

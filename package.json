@@ -30,6 +30,8 @@
     },
     "devDependencies": {
         "jest": "26.6.3",
-        "prettier": "2.3.0"
+        "jest-openapi": "0.13.0",
+        "prettier": "2.3.0",
+        "supertest": "6.1.3"
     }
 }

@@ -1,7 +1,12 @@
 const express = require('express')
-const { getUsers } = require('../datasources/users')
-const { getUserDiary } = require('../datasources/userDiaries')
-const { getDiaryBadges, getDiaryHumour } = require('../badges/diaryBadges')
+const dsConfig = require('../config').datasources
+const { getUsers, userExists } = require('../datasources/users').config(
+    dsConfig.users
+)
+const { getUserBadges } = require('../datasources/userBadges').config(
+    dsConfig.userBadges
+)
+const { getUserDiaryBadges } = require('../badges/diaryBadges')
 const {
     getValueFromCache,
     setValueToCache,
@@ -73,7 +78,7 @@ router.get('/', (req, res, next) => {
         .catch((error) => {
             next({
                 status: 500,
-                message: `Error fetching user diaries`,
+                message: `Error fetching user badges`,
             })
         })
 })
@@ -93,7 +98,7 @@ router.get('/:user*', (req, res, next) => {
             .catch((err) => {
                 next({
                     status: 500,
-                    message: `Error fetching user ${user} diary`,
+                    message: `Error fetching user ${user} badges`,
                 })
             })
     }
@@ -147,8 +152,7 @@ const checkUser = (user) => {
     if (!user) {
         return { error: true, text: 'You must set a user' }
     } else {
-        const foundUser = getUsers().find((u) => u === user)
-        if (foundUser !== undefined) {
+        if (userExists(user)) {
             return { error: false }
         } else {
             return { error: true, text: 'Invalid user' }
@@ -157,16 +161,21 @@ const checkUser = (user) => {
 }
 
 const getUsersBadges = (users) => {
-    const commit = 'main'
-    const asyncBadges = users.map((user) => {
-        return getUserDiary(user, commit).then((diarioMD) => {
-            const humour = getDiaryHumour(diarioMD)
-            const badges = getDiaryBadges(diarioMD)
-            return { user, humour, badges }
+    const asyncUsersDiaryBadges = users.map((user) => getUserDiaryBadges(user))
+    return Promise.all(asyncUsersDiaryBadges).then((usersDiaryBadges) => {
+        // Merge diary with own user badges
+        const totalUserBadges = usersDiaryBadges.map((userDiaryBadges) => {
+            const userBadges = getUserBadges(userDiaryBadges.user)
+            if (userBadges) {
+                return {
+                    ...userDiaryBadges,
+                    badges: [...userDiaryBadges.badges, ...userBadges.badges],
+                }
+            } else {
+                return userDiaryBadges
+            }
         })
-    })
-    return Promise.all(asyncBadges).then((badges) => {
-        const sortedBadges = badges.sort((a, b) =>
+        const sortedBadges = totalUserBadges.sort((a, b) =>
             a.user.toLowerCase() > b.user.toLocaleLowerCase() ? 1 : -1
         )
         return sortedBadges

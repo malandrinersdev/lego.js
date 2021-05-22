@@ -1,9 +1,11 @@
-const { getUserDiary } = require('../src/datasources/diaries')
-const { getDiaryHumour, getDiaryBadges } = require('../src/badges/diaryBadges')
+const { getUserDiary } = require('./datasources/userDiaries').config({
+    source: 'github',
+    commit: 'main',
+})
+const { getDiaryHumour, getDiaryBadges } = require('./badges/diaryBadges')
 
 const user = 'sergioedo'
-const commit = 'main'
-getUserDiary(user, commit).then((diarioMD) => {
+getUserDiary(user).then((diarioMD) => {
     console.log(getDiaryHumour(diarioMD))
     console.log(getDiaryBadges(diarioMD))
 })

@@ -1,0 +1,22 @@
+[
+    {
+        "user": "user01",
+        "badges": [
+            {
+                "type": "nacar",
+                "name": "live-challenge-01",
+                "url": "https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/badge-boton-nacar.png"
+            }
+        ]
+    },
+    {
+        "user": "user03",
+        "badges": [
+            {
+                "type": "malandriner",
+                "name": "super-challenge-02",
+                "url": "https://raw.githubusercontent.com/delineas/reto-programa-en-pantuflas/main/badges/badge-boton-malandriner.png"
+            }
+        ]
+    }
+]
